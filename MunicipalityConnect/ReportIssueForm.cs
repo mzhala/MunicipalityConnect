@@ -86,6 +86,9 @@ namespace MunicipalityConnect
             progressBar1.Value = 0;
             lblProgress.Text = "Let's get started!";
 
+            // Clear attachment display
+            lstAttachments.Items.Clear();
+
         }
 
         private void btnBackToMenu_Click(object sender, EventArgs e)
@@ -111,6 +114,11 @@ namespace MunicipalityConnect
                 attachmentsFolder,
                 queryCode
             );
+
+            if (Directory.Exists(issueFolder))
+            {
+                Directory.Delete(issueFolder, true);
+            }
 
             Directory.CreateDirectory(issueFolder);
 
