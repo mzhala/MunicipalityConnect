@@ -48,6 +48,14 @@ Attachments/
     ├── image.jpg
     └── document.pdf
 ```
+
+## 📸 Screenshots
+
+<p align="center">
+  <img src="MunicipalityConnect/Screeenshots/main_menu.png" width="45%" style="border: 2px solid #ccc; border-radius: 8px;">
+  <img src="MunicipalityConnect/Screeenshots/report_an_issue.png" width="45%" style="border: 2px solid #ccc; border-radius: 8px;">
+</p>
+
 ### Project Developer
 St10355256 Halalisile Mzobe
 
