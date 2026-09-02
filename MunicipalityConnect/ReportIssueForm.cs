@@ -101,6 +101,54 @@ namespace MunicipalityConnect
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
+            // Validate request type
+            if (!rdoReportIssue.Checked && !rdoRequestService.Checked)
+            {
+                MessageBox.Show(
+                    "Please select whether you are reporting an issue or requesting a service.",
+                    "Missing Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+            // Validate location
+            if (string.IsNullOrWhiteSpace(txtLocation.Text))
+            {
+                MessageBox.Show(
+                    "Please enter the location.",
+                    "Missing Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+            // Validate category
+            if (string.IsNullOrWhiteSpace(cmbCategory.Text))
+            {
+                MessageBox.Show(
+                    "Please select a category.",
+                    "Missing Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+            // Validate description
+            if (string.IsNullOrWhiteSpace(txtDescription.Text))
+            {
+                MessageBox.Show(
+                    "Please enter a description.",
+                    "Missing Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
             // Generate query code
             string queryCode = $"MC-{DateTime.Now.Year}-{queryNumber:D4}";
 
