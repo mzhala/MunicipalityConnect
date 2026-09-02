@@ -51,7 +51,7 @@
             pictureBox5.Image = Properties.Resources.check_mark;
             pictureBox5.InitialImage = (Image)resources.GetObject("pictureBox5.InitialImage");
             pictureBox5.Location = new Point(15, 17);
-            pictureBox5.Margin = new Padding(4, 4, 4, 4);
+            pictureBox5.Margin = new Padding(4);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(36, 49);
             pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
@@ -159,12 +159,13 @@
             btnOK.BackColor = Color.FromArgb(238, 240, 243);
             btnOK.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnOK.Location = new Point(329, 444);
-            btnOK.Margin = new Padding(4, 4, 4, 4);
+            btnOK.Margin = new Padding(4);
             btnOK.Name = "btnOK";
             btnOK.Size = new Size(96, 56);
             btnOK.TabIndex = 30;
             btnOK.Text = "OK";
             btnOK.UseVisualStyleBackColor = false;
+            btnOK.Click += btnOK_Click;
             // 
             // btnReturnToMenu
             // 
@@ -186,7 +187,7 @@
             txtSubmittedDescription.Enabled = false;
             txtSubmittedDescription.ForeColor = Color.Black;
             txtSubmittedDescription.Location = new Point(59, 290);
-            txtSubmittedDescription.Margin = new Padding(4, 4, 4, 4);
+            txtSubmittedDescription.Margin = new Padding(4);
             txtSubmittedDescription.Multiline = true;
             txtSubmittedDescription.Name = "txtSubmittedDescription";
             txtSubmittedDescription.Size = new Size(613, 68);
@@ -211,7 +212,7 @@
             Controls.Add(pictureBox5);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "SubmissionSuccessForm";
             Text = "Report Submitted Successfully";
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();

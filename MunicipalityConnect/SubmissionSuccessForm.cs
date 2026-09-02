@@ -14,11 +14,13 @@ namespace MunicipalityConnect
     {
         private Issue submittedIssue;
 
-        public SubmissionSuccessForm(Issue issue)
+        private Form reportIssueForm;
+        public SubmissionSuccessForm(Issue issue, Form reportIssueForm)
         {
             InitializeComponent();
 
             submittedIssue = issue;
+            this.reportIssueForm = reportIssueForm;
 
             DisplaySubmissionDetails();
         }
@@ -27,6 +29,8 @@ namespace MunicipalityConnect
         {
             MainMenu mainMenu = new MainMenu();
             mainMenu.Show();
+
+            reportIssueForm.Close();
 
             this.Hide();
         }
@@ -47,9 +51,6 @@ namespace MunicipalityConnect
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            ReportIssueForm reportIssueForm = new ReportIssueForm();
-            reportIssueForm.Show();
-
             this.Hide();
         }
     }

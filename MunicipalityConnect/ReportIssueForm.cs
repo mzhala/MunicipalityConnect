@@ -208,7 +208,7 @@ namespace MunicipalityConnect
             queryNumber++;
 
             SubmissionSuccessForm successForm =
-                new SubmissionSuccessForm(newIssue);
+                new SubmissionSuccessForm(newIssue, this);
 
             successForm.ShowDialog();
         }
