@@ -98,8 +98,23 @@ namespace MunicipalityConnect
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
+            // Generate query code
             string queryCode = $"MC-{DateTime.Now.Year}-{queryNumber:D4}";
 
+            // Create folder for this issue's attachments
+            string attachmentsFolder = Path.Combine(
+                Application.StartupPath,
+                "Attachments"
+            );
+
+            string issueFolder = Path.Combine(
+                attachmentsFolder,
+                queryCode
+            );
+
+            Directory.CreateDirectory(issueFolder);
+
+            // Create new Issue
             Issue newIssue = new Issue();
 
             // Request type
@@ -122,10 +137,27 @@ namespace MunicipalityConnect
             // Initial status
             newIssue.Status = "Submitted";
 
+            // Copy attachments
+            foreach (string file in selectedFiles)
+            {
+                string fileName = Path.GetFileName(file);
+                string destinationPath = Path.Combine(issueFolder, fileName);
+
+                File.Copy(file, destinationPath, true);
+
+                Attachment attachment = new Attachment
+                {
+                    FileName = fileName,
+                    FilePath = destinationPath
+                };
+
+                newIssue.Attachments.Add(attachment);
+            }
+
             // Add issue to the List
             issues.Add(newIssue);
 
-            // Increase the query number for the next issue
+            // Increase query number for next issue
             queryNumber++;
 
             MessageBox.Show(
