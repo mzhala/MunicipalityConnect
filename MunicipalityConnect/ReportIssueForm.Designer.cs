@@ -83,6 +83,11 @@
             btnBackToMenu = new Button();
             btnSubmit = new Button();
             btnClear = new Button();
+            lblRequestTypeError = new Label();
+            lblLocationError = new Label();
+            lblCategoryError = new Label();
+            lblIncidentDateError = new Label();
+            lblDescriptionError = new Label();
             panel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             panel2.SuspendLayout();
@@ -302,6 +307,11 @@
             // 
             panel15.BackColor = Color.White;
             panel15.BorderStyle = BorderStyle.FixedSingle;
+            panel15.Controls.Add(lblDescriptionError);
+            panel15.Controls.Add(lblIncidentDateError);
+            panel15.Controls.Add(lblCategoryError);
+            panel15.Controls.Add(lblLocationError);
+            panel15.Controls.Add(lblRequestTypeError);
             panel15.Controls.Add(panel17);
             panel15.Controls.Add(txtDescription);
             panel15.Controls.Add(label10);
@@ -334,7 +344,7 @@
             txtDescription.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtDescription.Location = new Point(14, 292);
             txtDescription.Name = "txtDescription";
-            txtDescription.Size = new Size(667, 123);
+            txtDescription.Size = new Size(667, 109);
             txtDescription.TabIndex = 23;
             txtDescription.Text = "";
             // 
@@ -672,6 +682,71 @@
             btnClear.UseVisualStyleBackColor = false;
             btnClear.Click += btnClear_Click;
             // 
+            // lblRequestTypeError
+            // 
+            lblRequestTypeError.AutoSize = true;
+            lblRequestTypeError.BackColor = Color.Transparent;
+            lblRequestTypeError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblRequestTypeError.ForeColor = Color.Red;
+            lblRequestTypeError.Location = new Point(588, 80);
+            lblRequestTypeError.Name = "lblRequestTypeError";
+            lblRequestTypeError.Size = new Size(90, 12);
+            lblRequestTypeError.TabIndex = 25;
+            lblRequestTypeError.Text = "* Select Request Type";
+            lblRequestTypeError.TextAlign = ContentAlignment.TopRight;
+            // 
+            // lblLocationError
+            // 
+            lblLocationError.AutoSize = true;
+            lblLocationError.BackColor = Color.Transparent;
+            lblLocationError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblLocationError.ForeColor = Color.Red;
+            lblLocationError.Location = new Point(568, 144);
+            lblLocationError.Name = "lblLocationError";
+            lblLocationError.Size = new Size(110, 12);
+            lblLocationError.TabIndex = 26;
+            lblLocationError.Text = "* Please enter the location.";
+            lblLocationError.TextAlign = ContentAlignment.TopRight;
+            // 
+            // lblCategoryError
+            // 
+            lblCategoryError.AutoSize = true;
+            lblCategoryError.BackColor = Color.Transparent;
+            lblCategoryError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblCategoryError.ForeColor = Color.Red;
+            lblCategoryError.Location = new Point(544, 201);
+            lblCategoryError.Name = "lblCategoryError";
+            lblCategoryError.Size = new Size(134, 12);
+            lblCategoryError.TabIndex = 27;
+            lblCategoryError.Text = "* Please select an issue category.";
+            lblCategoryError.TextAlign = ContentAlignment.TopRight;
+            // 
+            // lblIncidentDateError
+            // 
+            lblIncidentDateError.AutoSize = true;
+            lblIncidentDateError.BackColor = Color.Transparent;
+            lblIncidentDateError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblIncidentDateError.ForeColor = Color.Red;
+            lblIncidentDateError.Location = new Point(547, 261);
+            lblIncidentDateError.Name = "lblIncidentDateError";
+            lblIncidentDateError.Size = new Size(132, 12);
+            lblIncidentDateError.TabIndex = 28;
+            lblIncidentDateError.Text = "* Please select the incident date.";
+            lblIncidentDateError.TextAlign = ContentAlignment.TopRight;
+            // 
+            // lblDescriptionError
+            // 
+            lblDescriptionError.AutoSize = true;
+            lblDescriptionError.BackColor = Color.Transparent;
+            lblDescriptionError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDescriptionError.ForeColor = Color.Red;
+            lblDescriptionError.Location = new Point(552, 403);
+            lblDescriptionError.Name = "lblDescriptionError";
+            lblDescriptionError.Size = new Size(125, 12);
+            lblDescriptionError.TabIndex = 29;
+            lblDescriptionError.Text = "*  Describe the issue or service.";
+            lblDescriptionError.TextAlign = ContentAlignment.TopRight;
+            // 
             // ReportIssueForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -772,5 +847,10 @@
         private Button btnClear;
         private Button button2;
         private ListView lstAttachments;
+        private Label lblRequestTypeError;
+        private Label lblDescriptionError;
+        private Label lblIncidentDateError;
+        private Label lblCategoryError;
+        private Label lblLocationError;
     }
 }

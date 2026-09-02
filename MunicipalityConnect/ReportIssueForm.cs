@@ -21,7 +21,26 @@ namespace MunicipalityConnect
         public ReportIssueForm()
         {
             InitializeComponent();
+            LoadCategories();
 
+        }
+
+        private void LoadCategories()
+        {
+            cmbCategory.Items.Clear();
+
+            cmbCategory.Items.Add("Roads & Potholes");
+            cmbCategory.Items.Add("Water & Sanitation");
+            cmbCategory.Items.Add("Electricity");
+            cmbCategory.Items.Add("Street Lighting");
+            cmbCategory.Items.Add("Waste Management");
+            cmbCategory.Items.Add("Public Safety");
+            cmbCategory.Items.Add("Parks & Recreation");
+            cmbCategory.Items.Add("Traffic & Transport");
+            cmbCategory.Items.Add("Illegal Dumping");
+            cmbCategory.Items.Add("Other");
+
+            cmbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -101,53 +120,11 @@ namespace MunicipalityConnect
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            // Validate request type
-            if (!rdoReportIssue.Checked && !rdoRequestService.Checked)
+            if (!ValidateForm())
             {
-                MessageBox.Show(
-                    "Please select whether you are reporting an issue or requesting a service.",
-                    "Missing Information",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
                 return;
             }
 
-            // Validate location
-            if (string.IsNullOrWhiteSpace(txtLocation.Text))
-            {
-                MessageBox.Show(
-                    "Please enter the location.",
-                    "Missing Information",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
-
-            // Validate category
-            if (string.IsNullOrWhiteSpace(cmbCategory.Text))
-            {
-                MessageBox.Show(
-                    "Please select a category.",
-                    "Missing Information",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
-
-            // Validate description
-            if (string.IsNullOrWhiteSpace(txtDescription.Text))
-            {
-                MessageBox.Show(
-                    "Please enter a description.",
-                    "Missing Information",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
 
             // Generate query code
             string queryCode = $"MC-{DateTime.Now.Year}-{queryNumber:D4}";
@@ -243,6 +220,85 @@ namespace MunicipalityConnect
                     }
                 }
             }
+        }
+
+        private bool ValidateForm()
+        {
+            List<string> missingInformation = new List<string>();
+
+            // Hide all error labels first
+            lblRequestTypeError.Visible = false;
+            lblLocationError.Visible = false;
+            lblCategoryError.Visible = false;
+            lblIncidentDateError.Visible = false;
+            lblDescriptionError.Visible = false;
+
+            // Request type
+            if (!rdoReportIssue.Checked && !rdoRequestService.Checked)
+            {
+                missingInformation.Add("Please select a request type.");
+
+                lblRequestTypeError.Text = "● Please select a request type.";
+                lblRequestTypeError.Visible = true;
+            }
+
+            // Location
+            if (string.IsNullOrWhiteSpace(txtLocation.Text))
+            {
+                missingInformation.Add("Please enter the location.");
+
+                lblLocationError.Text = "● Please enter the location.";
+                lblLocationError.Visible = true;
+            }
+
+            // Category
+            if (cmbCategory.SelectedIndex == -1)
+            {
+                missingInformation.Add("Please select an issue category.");
+
+                lblCategoryError.Text = "● Please select an issue category.";
+                lblCategoryError.Visible = true;
+            }
+
+            // Incident date
+            if (dtpIncidentDate.Value == null)
+            {
+                missingInformation.Add("Please select the incident date.");
+
+                lblIncidentDateError.Text = "● Please select the incident date.";
+                lblIncidentDateError.Visible = true;
+            }
+
+            // Description
+            if (string.IsNullOrWhiteSpace(txtDescription.Text))
+            {
+                missingInformation.Add("Please provide a description.");
+
+                lblDescriptionError.Text = "● Please provide a description.";
+                lblDescriptionError.Visible = true;
+            }
+
+            // Show popup if there are missing fields
+            if (missingInformation.Count > 0)
+            {
+                string message = "Some required information is missing:\n\n";
+
+                foreach (string item in missingInformation)
+                {
+                    message += "• " + item + "\n";
+                }
+
+                MessageBox.Show(
+                    message,
+                    "Municipal Connect",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return false;
+            }
+
+            return true;
         }
     }
 }
