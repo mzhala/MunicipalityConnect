@@ -328,6 +328,7 @@
             btn_report_an_issue.TabIndex = 11;
             btn_report_an_issue.Text = "Report an Issue";
             btn_report_an_issue.UseVisualStyleBackColor = false;
+            btn_report_an_issue.Click += btn_report_an_issue_Click;
             // 
             // label5
             // 
@@ -407,6 +408,7 @@
             // button1
             // 
             button1.BackColor = Color.Silver;
+            button1.Cursor = Cursors.No;
             button1.Enabled = false;
             button1.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.Gray;
@@ -494,6 +496,7 @@
             // button2
             // 
             button2.BackColor = Color.Silver;
+            button2.Cursor = Cursors.No;
             button2.Enabled = false;
             button2.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button2.ForeColor = Color.Gray;

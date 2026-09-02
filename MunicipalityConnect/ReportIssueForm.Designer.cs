@@ -50,37 +50,39 @@
             label1 = new Label();
             pictureBox1 = new PictureBox();
             panel15 = new Panel();
-            label6 = new Label();
-            label5 = new Label();
-            panel16 = new Panel();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
-            label7 = new Label();
-            textBox1 = new TextBox();
-            label8 = new Label();
-            comboBox1 = new ComboBox();
-            label9 = new Label();
-            dateTimePicker1 = new DateTimePicker();
-            label10 = new Label();
-            richTextBox1 = new RichTextBox();
             panel17 = new Panel();
+            txtDescription = new RichTextBox();
+            label10 = new Label();
+            dtpIncidentDate = new DateTimePicker();
+            label9 = new Label();
+            cmbCategory = new ComboBox();
+            label8 = new Label();
+            txtLocation = new TextBox();
+            label7 = new Label();
+            panel16 = new Panel();
+            rdoRequestService = new RadioButton();
+            rdoReportIssue = new RadioButton();
+            label5 = new Label();
+            label6 = new Label();
             panel18 = new Panel();
+            button2 = new Button();
+            panel20 = new Panel();
+            lstAttachments = new ListView();
+            pictureBox2 = new PictureBox();
+            btnAttachFile = new Button();
             panel19 = new Panel();
             label15 = new Label();
             label16 = new Label();
-            button1 = new Button();
-            pictureBox2 = new PictureBox();
-            panel20 = new Panel();
             panel21 = new Panel();
-            panel23 = new Panel();
-            progressBar1 = new ProgressBar();
-            label11 = new Label();
             panel22 = new Panel();
-            label12 = new Label();
+            lblProgress = new Label();
+            label11 = new Label();
+            progressBar1 = new ProgressBar();
+            panel23 = new Panel();
             label13 = new Label();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
+            btnBackToMenu = new Button();
+            btnSubmit = new Button();
+            btnClear = new Button();
             panel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             panel2.SuspendLayout();
@@ -89,6 +91,7 @@
             panel15.SuspendLayout();
             panel16.SuspendLayout();
             panel18.SuspendLayout();
+            panel20.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel21.SuspendLayout();
             panel22.SuspendLayout();
@@ -300,13 +303,13 @@
             panel15.BackColor = Color.White;
             panel15.BorderStyle = BorderStyle.FixedSingle;
             panel15.Controls.Add(panel17);
-            panel15.Controls.Add(richTextBox1);
+            panel15.Controls.Add(txtDescription);
             panel15.Controls.Add(label10);
-            panel15.Controls.Add(dateTimePicker1);
+            panel15.Controls.Add(dtpIncidentDate);
             panel15.Controls.Add(label9);
-            panel15.Controls.Add(comboBox1);
+            panel15.Controls.Add(cmbCategory);
             panel15.Controls.Add(label8);
-            panel15.Controls.Add(textBox1);
+            panel15.Controls.Add(txtLocation);
             panel15.Controls.Add(label7);
             panel15.Controls.Add(panel16);
             panel15.Controls.Add(label5);
@@ -315,6 +318,139 @@
             panel15.Size = new Size(700, 432);
             panel15.TabIndex = 14;
             panel15.Paint += panel15_Paint;
+            // 
+            // panel17
+            // 
+            panel17.BackColor = Color.FromArgb(0, 170, 171);
+            panel17.Location = new Point(-1, -1);
+            panel17.Name = "panel17";
+            panel17.Size = new Size(699, 2);
+            panel17.TabIndex = 24;
+            panel17.Paint += panel17_Paint;
+            // 
+            // txtDescription
+            // 
+            txtDescription.BorderStyle = BorderStyle.FixedSingle;
+            txtDescription.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtDescription.Location = new Point(14, 292);
+            txtDescription.Name = "txtDescription";
+            txtDescription.Size = new Size(667, 123);
+            txtDescription.TabIndex = 23;
+            txtDescription.Text = "";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label10.ForeColor = Color.Black;
+            label10.Location = new Point(14, 272);
+            label10.Name = "label10";
+            label10.Size = new Size(74, 17);
+            label10.TabIndex = 22;
+            label10.Text = "Description";
+            // 
+            // dtpIncidentDate
+            // 
+            dtpIncidentDate.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtpIncidentDate.Location = new Point(14, 229);
+            dtpIncidentDate.Name = "dtpIncidentDate";
+            dtpIncidentDate.Size = new Size(667, 29);
+            dtpIncidentDate.TabIndex = 21;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label9.ForeColor = Color.Black;
+            label9.Location = new Point(14, 209);
+            label9.Name = "label9";
+            label9.Size = new Size(84, 17);
+            label9.TabIndex = 20;
+            label9.Text = "Incident Date";
+            // 
+            // cmbCategory
+            // 
+            cmbCategory.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbCategory.FormattingEnabled = true;
+            cmbCategory.Location = new Point(14, 169);
+            cmbCategory.Name = "cmbCategory";
+            cmbCategory.Size = new Size(667, 29);
+            cmbCategory.TabIndex = 19;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label8.ForeColor = Color.Black;
+            label8.Location = new Point(14, 149);
+            label8.Name = "label8";
+            label8.Size = new Size(61, 17);
+            label8.TabIndex = 18;
+            label8.Text = "Category";
+            // 
+            // txtLocation
+            // 
+            txtLocation.BorderStyle = BorderStyle.FixedSingle;
+            txtLocation.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtLocation.Location = new Point(14, 112);
+            txtLocation.Name = "txtLocation";
+            txtLocation.Size = new Size(667, 29);
+            txtLocation.TabIndex = 17;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.Black;
+            label7.Location = new Point(14, 92);
+            label7.Name = "label7";
+            label7.Size = new Size(57, 17);
+            label7.TabIndex = 16;
+            label7.Text = "Location";
+            // 
+            // panel16
+            // 
+            panel16.BackColor = Color.White;
+            panel16.BorderStyle = BorderStyle.FixedSingle;
+            panel16.Controls.Add(rdoRequestService);
+            panel16.Controls.Add(rdoReportIssue);
+            panel16.Location = new Point(14, 46);
+            panel16.Name = "panel16";
+            panel16.Size = new Size(667, 33);
+            panel16.TabIndex = 15;
+            // 
+            // rdoRequestService
+            // 
+            rdoRequestService.AutoSize = true;
+            rdoRequestService.Location = new Point(137, 6);
+            rdoRequestService.Name = "rdoRequestService";
+            rdoRequestService.Size = new Size(116, 19);
+            rdoRequestService.TabIndex = 1;
+            rdoRequestService.TabStop = true;
+            rdoRequestService.Text = "Request a Service";
+            rdoRequestService.UseVisualStyleBackColor = true;
+            // 
+            // rdoReportIssue
+            // 
+            rdoReportIssue.AutoSize = true;
+            rdoReportIssue.Location = new Point(12, 6);
+            rdoReportIssue.Name = "rdoReportIssue";
+            rdoReportIssue.Size = new Size(105, 19);
+            rdoReportIssue.TabIndex = 0;
+            rdoReportIssue.TabStop = true;
+            rdoReportIssue.Text = "Report an Issue";
+            rdoReportIssue.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.Black;
+            label5.Location = new Point(14, 22);
+            label5.Name = "label5";
+            label5.Size = new Size(86, 17);
+            label5.TabIndex = 10;
+            label5.Text = "Request Type";
             // 
             // label6
             // 
@@ -328,147 +464,14 @@
             label6.TabIndex = 9;
             label6.Text = "Details";
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.ForeColor = Color.Black;
-            label5.Location = new Point(14, 22);
-            label5.Name = "label5";
-            label5.Size = new Size(86, 17);
-            label5.TabIndex = 10;
-            label5.Text = "Request Type";
-            // 
-            // panel16
-            // 
-            panel16.BackColor = Color.White;
-            panel16.BorderStyle = BorderStyle.FixedSingle;
-            panel16.Controls.Add(radioButton2);
-            panel16.Controls.Add(radioButton1);
-            panel16.Location = new Point(14, 46);
-            panel16.Name = "panel16";
-            panel16.Size = new Size(667, 33);
-            panel16.TabIndex = 15;
-            // 
-            // radioButton1
-            // 
-            radioButton1.AutoSize = true;
-            radioButton1.Location = new Point(12, 6);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(105, 19);
-            radioButton1.TabIndex = 0;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Report an Issue";
-            radioButton1.UseVisualStyleBackColor = true;
-            radioButton1.CheckedChanged += radioButton1_CheckedChanged;
-            // 
-            // radioButton2
-            // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(137, 6);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(116, 19);
-            radioButton2.TabIndex = 1;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Request a Service";
-            radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.ForeColor = Color.Black;
-            label7.Location = new Point(14, 92);
-            label7.Name = "label7";
-            label7.Size = new Size(57, 17);
-            label7.TabIndex = 16;
-            label7.Text = "Location";
-            // 
-            // textBox1
-            // 
-            textBox1.BorderStyle = BorderStyle.FixedSingle;
-            textBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(14, 112);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(667, 29);
-            textBox1.TabIndex = 17;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label8.ForeColor = Color.Black;
-            label8.Location = new Point(14, 149);
-            label8.Name = "label8";
-            label8.Size = new Size(61, 17);
-            label8.TabIndex = 18;
-            label8.Text = "Category";
-            // 
-            // comboBox1
-            // 
-            comboBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(14, 169);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(667, 29);
-            comboBox1.TabIndex = 19;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label9.ForeColor = Color.Black;
-            label9.Location = new Point(14, 209);
-            label9.Name = "label9";
-            label9.Size = new Size(84, 17);
-            label9.TabIndex = 20;
-            label9.Text = "Incident Date";
-            // 
-            // dateTimePicker1
-            // 
-            dateTimePicker1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker1.Location = new Point(14, 229);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(667, 29);
-            dateTimePicker1.TabIndex = 21;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label10.ForeColor = Color.Black;
-            label10.Location = new Point(14, 272);
-            label10.Name = "label10";
-            label10.Size = new Size(74, 17);
-            label10.TabIndex = 22;
-            label10.Text = "Description";
-            // 
-            // richTextBox1
-            // 
-            richTextBox1.BorderStyle = BorderStyle.FixedSingle;
-            richTextBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            richTextBox1.Location = new Point(14, 292);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(667, 123);
-            richTextBox1.TabIndex = 23;
-            richTextBox1.Text = "";
-            // 
-            // panel17
-            // 
-            panel17.BackColor = Color.FromArgb(0, 170, 171);
-            panel17.Location = new Point(-1, -1);
-            panel17.Name = "panel17";
-            panel17.Size = new Size(699, 2);
-            panel17.TabIndex = 24;
-            panel17.Paint += panel17_Paint;
-            // 
             // panel18
             // 
             panel18.BackColor = Color.White;
             panel18.BorderStyle = BorderStyle.FixedSingle;
+            panel18.Controls.Add(button2);
             panel18.Controls.Add(panel20);
             panel18.Controls.Add(pictureBox2);
-            panel18.Controls.Add(button1);
+            panel18.Controls.Add(btnAttachFile);
             panel18.Controls.Add(panel19);
             panel18.Controls.Add(label15);
             panel18.Location = new Point(744, 230);
@@ -476,12 +479,65 @@
             panel18.Size = new Size(436, 314);
             panel18.TabIndex = 15;
             // 
+            // button2
+            // 
+            button2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button2.ImageAlign = ContentAlignment.MiddleLeft;
+            button2.Location = new Point(208, 53);
+            button2.Name = "button2";
+            button2.Size = new Size(123, 40);
+            button2.TabIndex = 28;
+            button2.Text = "Remove File";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // panel20
+            // 
+            panel20.Controls.Add(lstAttachments);
+            panel20.Location = new Point(14, 112);
+            panel20.Name = "panel20";
+            panel20.Size = new Size(401, 188);
+            panel20.TabIndex = 27;
+            // 
+            // lstAttachments
+            // 
+            lstAttachments.Location = new Point(-2, 0);
+            lstAttachments.Name = "lstAttachments";
+            lstAttachments.Size = new Size(403, 188);
+            lstAttachments.TabIndex = 0;
+            lstAttachments.UseCompatibleStateImageBehavior = false;
+            lstAttachments.View = View.List;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Enabled = false;
+            pictureBox2.ErrorImage = (Image)resources.GetObject("pictureBox2.ErrorImage");
+            pictureBox2.Image = Properties.Resources.documents;
+            pictureBox2.InitialImage = (Image)resources.GetObject("pictureBox2.InitialImage");
+            pictureBox2.Location = new Point(14, 46);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(39, 47);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 26;
+            pictureBox2.TabStop = false;
+            // 
+            // btnAttachFile
+            // 
+            btnAttachFile.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAttachFile.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAttachFile.Location = new Point(68, 53);
+            btnAttachFile.Name = "btnAttachFile";
+            btnAttachFile.Size = new Size(123, 40);
+            btnAttachFile.TabIndex = 25;
+            btnAttachFile.Text = "Attach File";
+            btnAttachFile.UseVisualStyleBackColor = true;
+            btnAttachFile.Click += btnAttachFile_Click;
+            // 
             // panel19
             // 
-            panel19.BackColor = Color.FromArgb(0, 170, 171);
+            panel19.BackColor = Color.FromArgb(151, 115, 207);
             panel19.Location = new Point(-1, -1);
             panel19.Name = "panel19";
-            panel19.Size = new Size(500, 2);
+            panel19.Size = new Size(436, 2);
             panel19.TabIndex = 24;
             // 
             // label15
@@ -500,43 +556,12 @@
             label16.AutoSize = true;
             label16.BackColor = Color.FromArgb(252, 254, 255);
             label16.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label16.ForeColor = Color.FromArgb(0, 170, 171);
+            label16.ForeColor = Color.FromArgb(151, 115, 207);
             label16.Location = new Point(757, 218);
             label16.Name = "label16";
             label16.Size = new Size(103, 21);
             label16.TabIndex = 16;
             label16.Text = "Attachments";
-            // 
-            // button1
-            // 
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.ImageAlign = ContentAlignment.MiddleLeft;
-            button1.Location = new Point(68, 53);
-            button1.Name = "button1";
-            button1.Size = new Size(123, 40);
-            button1.TabIndex = 25;
-            button1.Text = "Attach File";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Enabled = false;
-            pictureBox2.ErrorImage = (Image)resources.GetObject("pictureBox2.ErrorImage");
-            pictureBox2.Image = Properties.Resources.documents;
-            pictureBox2.InitialImage = (Image)resources.GetObject("pictureBox2.InitialImage");
-            pictureBox2.Location = new Point(14, 46);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(39, 47);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 26;
-            pictureBox2.TabStop = false;
-            // 
-            // panel20
-            // 
-            panel20.Location = new Point(14, 112);
-            panel20.Name = "panel20";
-            panel20.Size = new Size(401, 188);
-            panel20.TabIndex = 27;
             // 
             // panel21
             // 
@@ -550,21 +575,27 @@
             panel21.Name = "panel21";
             panel21.Size = new Size(436, 92);
             panel21.TabIndex = 17;
+            panel21.Paint += panel21_Paint;
             // 
-            // panel23
+            // panel22
             // 
-            panel23.BackColor = Color.FromArgb(0, 170, 171);
-            panel23.Location = new Point(-1, -1);
-            panel23.Name = "panel23";
-            panel23.Size = new Size(500, 2);
-            panel23.TabIndex = 24;
+            panel22.BackColor = Color.FromArgb(255, 241, 189);
+            panel22.Controls.Add(lblProgress);
+            panel22.Location = new Point(14, 53);
+            panel22.Name = "panel22";
+            panel22.Size = new Size(363, 23);
+            panel22.TabIndex = 30;
             // 
-            // progressBar1
+            // lblProgress
             // 
-            progressBar1.Location = new Point(14, 22);
-            progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(363, 23);
-            progressBar1.TabIndex = 28;
+            lblProgress.AutoSize = true;
+            lblProgress.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblProgress.ForeColor = Color.Black;
+            lblProgress.Location = new Point(2, 2);
+            lblProgress.Name = "lblProgress";
+            lblProgress.Size = new Size(106, 17);
+            lblProgress.TabIndex = 28;
+            lblProgress.Text = "Let's get started!";
             // 
             // label11
             // 
@@ -577,72 +608,69 @@
             label11.TabIndex = 29;
             label11.Text = "0%";
             // 
-            // panel22
+            // progressBar1
             // 
-            panel22.BackColor = Color.FromArgb(255, 241, 189);
-            panel22.Controls.Add(label12);
-            panel22.Location = new Point(14, 53);
-            panel22.Name = "panel22";
-            panel22.Size = new Size(363, 23);
-            panel22.TabIndex = 30;
+            progressBar1.Location = new Point(14, 22);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(363, 23);
+            progressBar1.TabIndex = 28;
             // 
-            // label12
+            // panel23
             // 
-            label12.AutoSize = true;
-            label12.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label12.ForeColor = Color.Black;
-            label12.Location = new Point(2, 2);
-            label12.Name = "label12";
-            label12.Size = new Size(106, 17);
-            label12.TabIndex = 28;
-            label12.Text = "Let's get started!";
+            panel23.BackColor = Color.FromArgb(19, 134, 220);
+            panel23.Location = new Point(-1, -1);
+            panel23.Name = "panel23";
+            panel23.Size = new Size(500, 2);
+            panel23.TabIndex = 24;
             // 
             // label13
             // 
             label13.AutoSize = true;
             label13.BackColor = Color.FromArgb(252, 254, 255);
             label13.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.ForeColor = Color.FromArgb(0, 170, 171);
+            label13.ForeColor = Color.FromArgb(19, 134, 220);
             label13.Location = new Point(761, 558);
             label13.Name = "label13";
             label13.Size = new Size(129, 21);
             label13.TabIndex = 18;
             label13.Text = "Report Progress";
             // 
-            // button2
+            // btnBackToMenu
             // 
-            button2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button2.Location = new Point(23, 684);
-            button2.Name = "button2";
-            button2.Size = new Size(163, 40);
-            button2.TabIndex = 19;
-            button2.Text = "Back to Main Menu";
-            button2.UseVisualStyleBackColor = true;
+            btnBackToMenu.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnBackToMenu.Location = new Point(23, 684);
+            btnBackToMenu.Name = "btnBackToMenu";
+            btnBackToMenu.Size = new Size(163, 40);
+            btnBackToMenu.TabIndex = 19;
+            btnBackToMenu.Text = "Back to Main Menu";
+            btnBackToMenu.UseVisualStyleBackColor = true;
+            btnBackToMenu.Click += btnBackToMenu_Click;
             // 
-            // button3
+            // btnSubmit
             // 
-            button3.BackColor = Color.FromArgb(43, 159, 74);
-            button3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.ForeColor = Color.FromArgb(246, 250, 249);
-            button3.Location = new Point(1050, 684);
-            button3.Margin = new Padding(0, 0, 0, 0);
-            button3.Name = "button3";
-            button3.Size = new Size(130, 40);
-            button3.TabIndex = 20;
-            button3.Text = "Submit Report";
-            button3.UseVisualStyleBackColor = false;
-            button3.Click += button3_Click;
+            btnSubmit.BackColor = Color.FromArgb(43, 159, 74);
+            btnSubmit.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSubmit.ForeColor = Color.FromArgb(246, 250, 249);
+            btnSubmit.Location = new Point(1050, 684);
+            btnSubmit.Margin = new Padding(0);
+            btnSubmit.Name = "btnSubmit";
+            btnSubmit.Size = new Size(130, 40);
+            btnSubmit.TabIndex = 20;
+            btnSubmit.Text = "Submit Report";
+            btnSubmit.UseVisualStyleBackColor = false;
+            btnSubmit.Click += btnSubmit_Click;
             // 
-            // button4
+            // btnClear
             // 
-            button4.BackColor = Color.FromArgb(238, 240, 243);
-            button4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button4.Location = new Point(917, 684);
-            button4.Name = "button4";
-            button4.Size = new Size(130, 40);
-            button4.TabIndex = 21;
-            button4.Text = "Clear Form";
-            button4.UseVisualStyleBackColor = false;
+            btnClear.BackColor = Color.FromArgb(238, 240, 243);
+            btnClear.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnClear.Location = new Point(917, 684);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(130, 40);
+            btnClear.TabIndex = 21;
+            btnClear.Text = "Clear Form";
+            btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += btnClear_Click;
             // 
             // ReportIssueForm
             // 
@@ -650,9 +678,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 254, 255);
             ClientSize = new Size(1206, 732);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
+            Controls.Add(btnClear);
+            Controls.Add(btnSubmit);
+            Controls.Add(btnBackToMenu);
             Controls.Add(label13);
             Controls.Add(panel21);
             Controls.Add(label16);
@@ -678,6 +706,7 @@
             panel16.PerformLayout();
             panel18.ResumeLayout(false);
             panel18.PerformLayout();
+            panel20.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel21.ResumeLayout(false);
             panel21.PerformLayout();
@@ -712,34 +741,36 @@
         private Panel panel15;
         private Label label6;
         private Panel panel16;
-        private RadioButton radioButton1;
+        private RadioButton rdoReportIssue;
         private Label label5;
-        private TextBox textBox1;
+        private TextBox txtLocation;
         private Label label7;
-        private RadioButton radioButton2;
-        private RichTextBox richTextBox1;
+        private RadioButton rdoRequestService;
+        private RichTextBox txtDescription;
         private Label label10;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dtpIncidentDate;
         private Label label9;
-        private ComboBox comboBox1;
+        private ComboBox cmbCategory;
         private Label label8;
         private Panel panel17;
         private Panel panel18;
         private Panel panel19;
         private Label label15;
-        private Button button1;
+        private Button btnAttachFile;
         private Label label16;
         private Panel panel20;
         private PictureBox pictureBox2;
         private Panel panel21;
         private Panel panel23;
         private Panel panel22;
-        private Label label12;
+        private Label lblProgress;
         private Label label11;
         private ProgressBar progressBar1;
         private Label label13;
+        private Button btnBackToMenu;
+        private Button btnSubmit;
+        private Button btnClear;
         private Button button2;
-        private Button button3;
-        private Button button4;
+        private ListView lstAttachments;
     }
 }

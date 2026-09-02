@@ -61,5 +61,13 @@ namespace MunicipalityConnect
         {
 
         }
+
+        private void btn_report_an_issue_Click(object sender, EventArgs e)
+        {
+            ReportIssueForm reportIssueForm = new ReportIssueForm();
+            reportIssueForm.Show();
+
+            this.Hide();
+        }
     }
 }
