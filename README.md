@@ -47,3 +47,7 @@ Attachments/
 └── MC-2026-0001/
     ├── image.jpg
     └── document.pdf
+
+### Project Developer
+St10355256 Halalisile Mzobe
+
