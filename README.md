@@ -56,6 +56,38 @@ Attachments/
   <img src="MunicipalityConnect/Screeenshots/report_an_issue.png" width="45%" style="border: 2px solid #ccc; border-radius: 8px;">
 </p>
 
+## To load and run the MunicipalityConnect application, follow the steps below:
+
+1. Download or clone the project from the GitHub repository.
+2. Open Visual Studio on a Windows computer.
+3. Select Open a project or solution from the Visual Studio start screen.
+4. Navigate to the downloaded project folder and open the MunicipalityConnect.sln solution file.
+5. Allow Visual Studio to load the solution and its associated project files.
+6. Once the project has loaded, ensure that MunicipalityConnect is selected as the startup project.
+7. Build the solution by selecting:
+   
+    **Build → Build Solution**
+
+    Alternatively, press:
+
+   **Ctrl + Shift + B**
+  
+  8. If the solution builds successfully, run the application by selecting:
+  
+      **Debug → Start Without Debugging**
+      
+      or press:
+      
+      **Ctrl + F5**
+
+9. The MunicipalityConnect Main Menu will open and the application can then be tested.
+
+## System Requirements
+Windows operating system
+Microsoft Visual Studio
+.NET development tools required for Windows Forms
+Access to the project files and solution (.sln) file
+
 ### Project Developer
 St10355256 Halalisile Mzobe
 
