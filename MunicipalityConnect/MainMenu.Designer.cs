@@ -69,6 +69,7 @@
             label11 = new Label();
             label12 = new Label();
             panel20 = new Panel();
+            label13 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -291,6 +292,7 @@
             // 
             panel15.BackColor = Color.White;
             panel15.BorderStyle = BorderStyle.FixedSingle;
+            panel15.Controls.Add(label13);
             panel15.Controls.Add(pictureBox2);
             panel15.Controls.Add(btn_report_an_issue);
             panel15.Controls.Add(label5);
@@ -335,9 +337,10 @@
             label5.Location = new Point(27, 129);
             label5.Margin = new Padding(0);
             label5.Name = "label5";
-            label5.Size = new Size(261, 17);
+            label5.Size = new Size(282, 17);
             label5.TabIndex = 10;
-            label5.Text = "Tell us about a problem in your community.";
+            label5.Text = "Tell us about a problem in your community, or ";
+            label5.Click += label5_Click;
             // 
             // label6
             // 
@@ -347,9 +350,9 @@
             label6.Location = new Point(27, 102);
             label6.Margin = new Padding(0);
             label6.Name = "label6";
-            label6.Size = new Size(150, 25);
+            label6.Size = new Size(335, 25);
             label6.TabIndex = 9;
-            label6.Text = "Report an Issue";
+            label6.Text = "Report an Issue or Request a Service";
             // 
             // panel16
             // 
@@ -533,6 +536,18 @@
             panel20.Size = new Size(364, 5);
             panel20.TabIndex = 8;
             // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label13.ForeColor = Color.Gray;
+            label13.Location = new Point(27, 149);
+            label13.Margin = new Padding(0);
+            label13.Name = "label13";
+            label13.Size = new Size(169, 17);
+            label13.TabIndex = 13;
+            label13.Text = "request a municipal service.";
+            // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -611,5 +626,6 @@
         private Label label12;
         private Panel panel20;
         private PictureBox pictureBox5;
+        private Label label13;
     }
 }
