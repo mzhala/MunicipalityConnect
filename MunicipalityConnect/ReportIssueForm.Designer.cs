@@ -50,6 +50,11 @@
             label1 = new Label();
             pictureBox1 = new PictureBox();
             panel15 = new Panel();
+            lblDescriptionError = new Label();
+            lblIncidentDateError = new Label();
+            lblCategoryError = new Label();
+            lblLocationError = new Label();
+            lblRequestTypeError = new Label();
             panel17 = new Panel();
             txtDescription = new RichTextBox();
             label10 = new Label();
@@ -65,7 +70,7 @@
             label5 = new Label();
             label6 = new Label();
             panel18 = new Panel();
-            button2 = new Button();
+            btnRemoveFile = new Button();
             panel20 = new Panel();
             lstAttachments = new ListView();
             pictureBox2 = new PictureBox();
@@ -75,19 +80,14 @@
             label16 = new Label();
             panel21 = new Panel();
             panel22 = new Panel();
-            lblProgress = new Label();
-            label11 = new Label();
+            lblProgressMessage = new Label();
+            lblProgressPercent = new Label();
             progressBar1 = new ProgressBar();
             panel23 = new Panel();
             label13 = new Label();
             btnBackToMenu = new Button();
             btnSubmit = new Button();
             btnClear = new Button();
-            lblRequestTypeError = new Label();
-            lblLocationError = new Label();
-            lblCategoryError = new Label();
-            lblIncidentDateError = new Label();
-            lblDescriptionError = new Label();
             panel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             panel2.SuspendLayout();
@@ -104,6 +104,7 @@
             // 
             // panel13
             // 
+            panel13.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel13.BackColor = Color.FromArgb(235, 247, 255);
             panel13.BorderStyle = BorderStyle.FixedSingle;
             panel13.Controls.Add(pictureBox5);
@@ -161,6 +162,7 @@
             // 
             // panel2
             // 
+            panel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel2.BackColor = Color.FromArgb(0, 170, 171);
             panel2.Controls.Add(panel7);
             panel2.Controls.Add(panel6);
@@ -205,6 +207,7 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.FromArgb(27, 60, 109);
             panel1.Controls.Add(panel12);
             panel1.Controls.Add(panel11);
@@ -222,6 +225,7 @@
             // 
             // panel12
             // 
+            panel12.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel12.BackColor = Color.FromArgb(143, 104, 203);
             panel12.Location = new Point(1166, 29);
             panel12.Name = "panel12";
@@ -230,6 +234,7 @@
             // 
             // panel11
             // 
+            panel11.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel11.BackColor = Color.FromArgb(43, 159, 74);
             panel11.Location = new Point(1146, 29);
             panel11.Name = "panel11";
@@ -238,6 +243,7 @@
             // 
             // panel10
             // 
+            panel10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel10.BackColor = Color.FromArgb(228, 130, 18);
             panel10.Location = new Point(1126, 29);
             panel10.Name = "panel10";
@@ -246,6 +252,7 @@
             // 
             // panel9
             // 
+            panel9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel9.BackColor = Color.FromArgb(231, 192, 58);
             panel9.Location = new Point(1106, 29);
             panel9.Name = "panel9";
@@ -254,6 +261,7 @@
             // 
             // panel8
             // 
+            panel8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel8.BackColor = Color.FromArgb(0, 170, 171);
             panel8.Location = new Point(1086, 29);
             panel8.Name = "panel8";
@@ -329,6 +337,71 @@
             panel15.TabIndex = 14;
             panel15.Paint += panel15_Paint;
             // 
+            // lblDescriptionError
+            // 
+            lblDescriptionError.AutoSize = true;
+            lblDescriptionError.BackColor = Color.Transparent;
+            lblDescriptionError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDescriptionError.ForeColor = Color.Red;
+            lblDescriptionError.Location = new Point(552, 403);
+            lblDescriptionError.Name = "lblDescriptionError";
+            lblDescriptionError.Size = new Size(125, 12);
+            lblDescriptionError.TabIndex = 29;
+            lblDescriptionError.Text = "*  Describe the issue or service.";
+            lblDescriptionError.TextAlign = ContentAlignment.TopRight;
+            // 
+            // lblIncidentDateError
+            // 
+            lblIncidentDateError.AutoSize = true;
+            lblIncidentDateError.BackColor = Color.Transparent;
+            lblIncidentDateError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblIncidentDateError.ForeColor = Color.Red;
+            lblIncidentDateError.Location = new Point(547, 261);
+            lblIncidentDateError.Name = "lblIncidentDateError";
+            lblIncidentDateError.Size = new Size(132, 12);
+            lblIncidentDateError.TabIndex = 28;
+            lblIncidentDateError.Text = "* Please select the incident date.";
+            lblIncidentDateError.TextAlign = ContentAlignment.TopRight;
+            // 
+            // lblCategoryError
+            // 
+            lblCategoryError.AutoSize = true;
+            lblCategoryError.BackColor = Color.Transparent;
+            lblCategoryError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblCategoryError.ForeColor = Color.Red;
+            lblCategoryError.Location = new Point(544, 201);
+            lblCategoryError.Name = "lblCategoryError";
+            lblCategoryError.Size = new Size(134, 12);
+            lblCategoryError.TabIndex = 27;
+            lblCategoryError.Text = "* Please select an issue category.";
+            lblCategoryError.TextAlign = ContentAlignment.TopRight;
+            // 
+            // lblLocationError
+            // 
+            lblLocationError.AutoSize = true;
+            lblLocationError.BackColor = Color.Transparent;
+            lblLocationError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblLocationError.ForeColor = Color.Red;
+            lblLocationError.Location = new Point(568, 144);
+            lblLocationError.Name = "lblLocationError";
+            lblLocationError.Size = new Size(110, 12);
+            lblLocationError.TabIndex = 26;
+            lblLocationError.Text = "* Please enter the location.";
+            lblLocationError.TextAlign = ContentAlignment.TopRight;
+            // 
+            // lblRequestTypeError
+            // 
+            lblRequestTypeError.AutoSize = true;
+            lblRequestTypeError.BackColor = Color.Transparent;
+            lblRequestTypeError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblRequestTypeError.ForeColor = Color.Red;
+            lblRequestTypeError.Location = new Point(588, 80);
+            lblRequestTypeError.Name = "lblRequestTypeError";
+            lblRequestTypeError.Size = new Size(90, 12);
+            lblRequestTypeError.TabIndex = 25;
+            lblRequestTypeError.Text = "* Select Request Type";
+            lblRequestTypeError.TextAlign = ContentAlignment.TopRight;
+            // 
             // panel17
             // 
             panel17.BackColor = Color.FromArgb(0, 170, 171);
@@ -347,6 +420,7 @@
             txtDescription.Size = new Size(667, 109);
             txtDescription.TabIndex = 23;
             txtDescription.Text = "";
+            txtDescription.TextChanged += txtDescription_TextChanged;
             // 
             // label10
             // 
@@ -366,6 +440,7 @@
             dtpIncidentDate.Name = "dtpIncidentDate";
             dtpIncidentDate.Size = new Size(667, 29);
             dtpIncidentDate.TabIndex = 21;
+            dtpIncidentDate.ValueChanged += dtpIncidentDate_ValueChanged;
             // 
             // label9
             // 
@@ -386,6 +461,7 @@
             cmbCategory.Name = "cmbCategory";
             cmbCategory.Size = new Size(667, 29);
             cmbCategory.TabIndex = 19;
+            cmbCategory.SelectedIndexChanged += cmbCategory_SelectedIndexChanged;
             // 
             // label8
             // 
@@ -406,6 +482,7 @@
             txtLocation.Name = "txtLocation";
             txtLocation.Size = new Size(667, 29);
             txtLocation.TabIndex = 17;
+            txtLocation.TextChanged += txtLocation_TextChanged;
             // 
             // label7
             // 
@@ -478,7 +555,7 @@
             // 
             panel18.BackColor = Color.White;
             panel18.BorderStyle = BorderStyle.FixedSingle;
-            panel18.Controls.Add(button2);
+            panel18.Controls.Add(btnRemoveFile);
             panel18.Controls.Add(panel20);
             panel18.Controls.Add(pictureBox2);
             panel18.Controls.Add(btnAttachFile);
@@ -489,16 +566,17 @@
             panel18.Size = new Size(436, 314);
             panel18.TabIndex = 15;
             // 
-            // button2
+            // btnRemoveFile
             // 
-            button2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.ImageAlign = ContentAlignment.MiddleLeft;
-            button2.Location = new Point(208, 53);
-            button2.Name = "button2";
-            button2.Size = new Size(123, 40);
-            button2.TabIndex = 28;
-            button2.Text = "Remove File";
-            button2.UseVisualStyleBackColor = true;
+            btnRemoveFile.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnRemoveFile.ImageAlign = ContentAlignment.MiddleLeft;
+            btnRemoveFile.Location = new Point(208, 53);
+            btnRemoveFile.Name = "btnRemoveFile";
+            btnRemoveFile.Size = new Size(123, 40);
+            btnRemoveFile.TabIndex = 28;
+            btnRemoveFile.Text = "Remove File";
+            btnRemoveFile.UseVisualStyleBackColor = true;
+            btnRemoveFile.Click += btnRemoveFile_Click;
             // 
             // panel20
             // 
@@ -578,7 +656,7 @@
             panel21.BackColor = Color.White;
             panel21.BorderStyle = BorderStyle.FixedSingle;
             panel21.Controls.Add(panel22);
-            panel21.Controls.Add(label11);
+            panel21.Controls.Add(lblProgressPercent);
             panel21.Controls.Add(progressBar1);
             panel21.Controls.Add(panel23);
             panel21.Location = new Point(744, 570);
@@ -590,33 +668,33 @@
             // panel22
             // 
             panel22.BackColor = Color.FromArgb(255, 241, 189);
-            panel22.Controls.Add(lblProgress);
+            panel22.Controls.Add(lblProgressMessage);
             panel22.Location = new Point(14, 53);
             panel22.Name = "panel22";
             panel22.Size = new Size(363, 23);
             panel22.TabIndex = 30;
             // 
-            // lblProgress
+            // lblProgressMessage
             // 
-            lblProgress.AutoSize = true;
-            lblProgress.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblProgress.ForeColor = Color.Black;
-            lblProgress.Location = new Point(2, 2);
-            lblProgress.Name = "lblProgress";
-            lblProgress.Size = new Size(106, 17);
-            lblProgress.TabIndex = 28;
-            lblProgress.Text = "Let's get started!";
+            lblProgressMessage.AutoSize = true;
+            lblProgressMessage.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblProgressMessage.ForeColor = Color.Black;
+            lblProgressMessage.Location = new Point(2, 2);
+            lblProgressMessage.Name = "lblProgressMessage";
+            lblProgressMessage.Size = new Size(106, 17);
+            lblProgressMessage.TabIndex = 28;
+            lblProgressMessage.Text = "Let's get started!";
             // 
-            // label11
+            // lblProgressPercent
             // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label11.ForeColor = Color.FromArgb(0, 170, 171);
-            label11.Location = new Point(383, 22);
-            label11.Name = "label11";
-            label11.Size = new Size(30, 20);
-            label11.TabIndex = 29;
-            label11.Text = "0%";
+            lblProgressPercent.AutoSize = true;
+            lblProgressPercent.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblProgressPercent.ForeColor = Color.FromArgb(0, 170, 171);
+            lblProgressPercent.Location = new Point(383, 22);
+            lblProgressPercent.Name = "lblProgressPercent";
+            lblProgressPercent.Size = new Size(30, 20);
+            lblProgressPercent.TabIndex = 29;
+            lblProgressPercent.Text = "0%";
             // 
             // progressBar1
             // 
@@ -682,71 +760,6 @@
             btnClear.UseVisualStyleBackColor = false;
             btnClear.Click += btnClear_Click;
             // 
-            // lblRequestTypeError
-            // 
-            lblRequestTypeError.AutoSize = true;
-            lblRequestTypeError.BackColor = Color.Transparent;
-            lblRequestTypeError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblRequestTypeError.ForeColor = Color.Red;
-            lblRequestTypeError.Location = new Point(588, 80);
-            lblRequestTypeError.Name = "lblRequestTypeError";
-            lblRequestTypeError.Size = new Size(90, 12);
-            lblRequestTypeError.TabIndex = 25;
-            lblRequestTypeError.Text = "* Select Request Type";
-            lblRequestTypeError.TextAlign = ContentAlignment.TopRight;
-            // 
-            // lblLocationError
-            // 
-            lblLocationError.AutoSize = true;
-            lblLocationError.BackColor = Color.Transparent;
-            lblLocationError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblLocationError.ForeColor = Color.Red;
-            lblLocationError.Location = new Point(568, 144);
-            lblLocationError.Name = "lblLocationError";
-            lblLocationError.Size = new Size(110, 12);
-            lblLocationError.TabIndex = 26;
-            lblLocationError.Text = "* Please enter the location.";
-            lblLocationError.TextAlign = ContentAlignment.TopRight;
-            // 
-            // lblCategoryError
-            // 
-            lblCategoryError.AutoSize = true;
-            lblCategoryError.BackColor = Color.Transparent;
-            lblCategoryError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblCategoryError.ForeColor = Color.Red;
-            lblCategoryError.Location = new Point(544, 201);
-            lblCategoryError.Name = "lblCategoryError";
-            lblCategoryError.Size = new Size(134, 12);
-            lblCategoryError.TabIndex = 27;
-            lblCategoryError.Text = "* Please select an issue category.";
-            lblCategoryError.TextAlign = ContentAlignment.TopRight;
-            // 
-            // lblIncidentDateError
-            // 
-            lblIncidentDateError.AutoSize = true;
-            lblIncidentDateError.BackColor = Color.Transparent;
-            lblIncidentDateError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblIncidentDateError.ForeColor = Color.Red;
-            lblIncidentDateError.Location = new Point(547, 261);
-            lblIncidentDateError.Name = "lblIncidentDateError";
-            lblIncidentDateError.Size = new Size(132, 12);
-            lblIncidentDateError.TabIndex = 28;
-            lblIncidentDateError.Text = "* Please select the incident date.";
-            lblIncidentDateError.TextAlign = ContentAlignment.TopRight;
-            // 
-            // lblDescriptionError
-            // 
-            lblDescriptionError.AutoSize = true;
-            lblDescriptionError.BackColor = Color.Transparent;
-            lblDescriptionError.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblDescriptionError.ForeColor = Color.Red;
-            lblDescriptionError.Location = new Point(552, 403);
-            lblDescriptionError.Name = "lblDescriptionError";
-            lblDescriptionError.Size = new Size(125, 12);
-            lblDescriptionError.TabIndex = 29;
-            lblDescriptionError.Text = "*  Describe the issue or service.";
-            lblDescriptionError.TextAlign = ContentAlignment.TopRight;
-            // 
             // ReportIssueForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -765,6 +778,7 @@
             Controls.Add(panel13);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ReportIssueForm";
             Text = "ReportIssueForm";
             Load += ReportIssueForm_Load;
@@ -838,14 +852,14 @@
         private Panel panel21;
         private Panel panel23;
         private Panel panel22;
-        private Label lblProgress;
-        private Label label11;
+        private Label lblProgressMessage;
+        private Label lblProgressPercent;
         private ProgressBar progressBar1;
         private Label label13;
         private Button btnBackToMenu;
         private Button btnSubmit;
         private Button btnClear;
-        private Button button2;
+        private Button btnRemoveFile;
         private ListView lstAttachments;
         private Label lblRequestTypeError;
         private Label lblDescriptionError;

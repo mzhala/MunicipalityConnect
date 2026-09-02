@@ -93,6 +93,16 @@ namespace MunicipalityConnect.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap check_mark {
+            get {
+                object obj = ResourceManager.GetObject("check-mark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap documents {
             get {
                 object obj = ResourceManager.GetObject("documents", resourceCulture);
@@ -107,6 +117,16 @@ namespace MunicipalityConnect.Properties {
             get {
                 object obj = ResourceManager.GetObject("ethekwini logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ethekwini_logo_icon {
+            get {
+                object obj = ResourceManager.GetObject("ethekwini logo icon", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

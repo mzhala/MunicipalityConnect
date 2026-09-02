@@ -5,6 +5,8 @@ namespace MunicipalityConnect
         public MainMenu()
         {
             InitializeComponent();
+
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -63,6 +65,24 @@ namespace MunicipalityConnect
         }
 
         private void btn_report_an_issue_Click(object sender, EventArgs e)
+        {
+            ReportIssueForm reportIssueForm = new ReportIssueForm();
+            reportIssueForm.Show();
+
+            this.Hide();
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label22_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
         {
             ReportIssueForm reportIssueForm = new ReportIssueForm();
             reportIssueForm.Show();

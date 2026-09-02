@@ -21,8 +21,19 @@ namespace MunicipalityConnect
         public ReportIssueForm()
         {
             InitializeComponent();
+
             LoadCategories();
 
+            // Start with no incident date selected
+            dtpIncidentDate.Format = DateTimePickerFormat.Custom;
+            dtpIncidentDate.CustomFormat = "yyyy/MM/dd";
+            dtpIncidentDate.ShowCheckBox = true;
+            dtpIncidentDate.Checked = false;
+            HideErrorLabels();
+
+            UpdateProgress();
+
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private void LoadCategories()
@@ -86,7 +97,7 @@ namespace MunicipalityConnect
         private void btnClear_Click(object sender, EventArgs e)
         {
             // Clear request type
-            rdoReportIssue.Checked = false;
+            rdoReportIssue.Checked = true;
             rdoRequestService.Checked = false;
 
             // Clear location
@@ -96,17 +107,20 @@ namespace MunicipalityConnect
             cmbCategory.SelectedIndex = -1;
 
             // Reset incident date
-            dtpIncidentDate.Value = DateTime.Today;
+            dtpIncidentDate.Checked = false;
 
             // Clear description
             txtDescription.Clear();
 
             // Reset progress
             progressBar1.Value = 0;
-            lblProgress.Text = "Let's get started!";
+            lblProgressMessage.Text = "Let's get started!";
 
             // Clear attachment display
             lstAttachments.Items.Clear();
+
+            // Update Progress bar
+            UpdateProgress();
 
         }
 
@@ -193,12 +207,10 @@ namespace MunicipalityConnect
             // Increase query number for next issue
             queryNumber++;
 
-            MessageBox.Show(
-                $"Your report has been submitted successfully.\n\nYour query code is: {queryCode}",
-                "Report Submitted",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
+            SubmissionSuccessForm successForm =
+                new SubmissionSuccessForm(newIssue);
+
+            successForm.ShowDialog();
         }
 
         private void btnAttachFile_Click(object sender, EventArgs e)
@@ -261,7 +273,7 @@ namespace MunicipalityConnect
             }
 
             // Incident date
-            if (dtpIncidentDate.Value == null)
+            if (!dtpIncidentDate.Checked)
             {
                 missingInformation.Add("Please select the incident date.");
 
@@ -299,6 +311,115 @@ namespace MunicipalityConnect
             }
 
             return true;
+        }
+
+        private void UpdateProgress()
+        {
+            int completedFields = 0;
+
+            // Check location
+            if (!string.IsNullOrWhiteSpace(txtLocation.Text))
+            {
+                completedFields++;
+            }
+
+            // Check category
+            if (cmbCategory.SelectedIndex != -1)
+            {
+                completedFields++;
+            }
+
+            // Check incident date
+            if (dtpIncidentDate.Checked)
+            {
+                completedFields++;
+            }
+
+            // Check description
+            if (!string.IsNullOrWhiteSpace(txtDescription.Text))
+            {
+                completedFields++;
+            }
+
+            // Calculate progress
+            int progress = completedFields * 25;
+
+            progressBar1.Value = progress;
+            lblProgressPercent.Text = progress + "%";
+
+            // Update message
+            if (progress == 0)
+            {
+                lblProgressMessage.Text = "Let's get started!";
+            }
+            else if (progress == 25)
+            {
+                lblProgressMessage.Text = "Great start!";
+            }
+            else if (progress == 50)
+            {
+                lblProgressMessage.Text = "Almost there!";
+            }
+            else if (progress == 75)
+            {
+                lblProgressMessage.Text = "Almost there!";
+            }
+            else if (progress == 100)
+            {
+                lblProgressMessage.Text = "You're ready to submit!";
+            }
+        }
+
+        private void HideErrorLabels()
+        {
+            lblRequestTypeError.Visible = false;
+            lblLocationError.Visible = false;
+            lblCategoryError.Visible = false;
+            lblIncidentDateError.Visible = false;
+            lblDescriptionError.Visible = false;
+        }
+
+        private void txtLocation_TextChanged(object sender, EventArgs e)
+        {
+            UpdateProgress();
+        }
+
+        private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateProgress();
+        }
+
+        private void dtpIncidentDate_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateProgress();
+        }
+
+        private void txtDescription_TextChanged(object sender, EventArgs e)
+        {
+            UpdateProgress();
+        }
+
+        private void btnRemoveFile_Click(object sender, EventArgs e)
+        {
+            if (lstAttachments.SelectedItems.Count == 0)
+            {
+                MessageBox.Show(
+                    "Please select a file to remove.",
+                    "No File Selected",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                return;
+            }
+
+            int selectedIndex = lstAttachments.SelectedIndices[0];
+
+            // Remove the file from the selected files list
+            selectedFiles.RemoveAt(selectedIndex);
+
+            // Remove the file from the ListView
+            lstAttachments.Items.RemoveAt(selectedIndex);
         }
     }
 }
