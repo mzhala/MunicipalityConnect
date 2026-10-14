@@ -75,12 +75,14 @@
             panel27 = new Panel();
             comboBox_category = new ComboBox();
             label10 = new Label();
-            lblFeaturedEvents = new Label();
             dataGridView_events = new DataGridView();
             btnViewDetails = new DataGridViewButtonColumn();
             grpRecommendations = new GroupBox();
             dataGridView_recommendations = new DataGridView();
             btnViewDetailsRecommended = new DataGridViewButtonColumn();
+            grpUpcomingEvents = new GroupBox();
+            lstUpcomingEvents = new ListBox();
+            groupBox2 = new GroupBox();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -94,6 +96,8 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView_events).BeginInit();
             grpRecommendations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView_recommendations).BeginInit();
+            grpUpcomingEvents.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // panel2
@@ -453,10 +457,10 @@
             panel25.Controls.Add(panel29);
             panel25.Controls.Add(panel28);
             panel25.Controls.Add(panel27);
-            panel25.Location = new Point(25, 295);
+            panel25.Location = new Point(25, 280);
             panel25.Margin = new Padding(3, 4, 3, 4);
             panel25.Name = "panel25";
-            panel25.Size = new Size(1323, 100);
+            panel25.Size = new Size(1323, 88);
             panel25.TabIndex = 22;
             // 
             // panel26
@@ -464,7 +468,7 @@
             panel26.BackColor = Color.White;
             panel26.Controls.Add(comboBox_location);
             panel26.Controls.Add(label7);
-            panel26.Location = new Point(568, 10);
+            panel26.Location = new Point(568, 4);
             panel26.Margin = new Padding(3, 4, 3, 4);
             panel26.Name = "panel26";
             panel26.Size = new Size(254, 78);
@@ -474,7 +478,7 @@
             // 
             comboBox_location.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBox_location.FormattingEnabled = true;
-            comboBox_location.Location = new Point(15, 34);
+            comboBox_location.Location = new Point(15, 29);
             comboBox_location.Margin = new Padding(3, 4, 3, 4);
             comboBox_location.Name = "comboBox_location";
             comboBox_location.Size = new Size(225, 36);
@@ -486,7 +490,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.Black;
-            label7.Location = new Point(15, 7);
+            label7.Location = new Point(15, 4);
             label7.Name = "label7";
             label7.Size = new Size(75, 23);
             label7.TabIndex = 18;
@@ -496,7 +500,7 @@
             // 
             btnClear.BackColor = Color.FromArgb(238, 240, 243);
             btnClear.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            btnClear.Location = new Point(1214, 38);
+            btnClear.Location = new Point(1214, 23);
             btnClear.Margin = new Padding(0);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(88, 46);
@@ -510,7 +514,7 @@
             btnSearch.BackColor = Color.FromArgb(27, 60, 109);
             btnSearch.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSearch.ForeColor = Color.FromArgb(246, 250, 249);
-            btnSearch.Location = new Point(1059, 38);
+            btnSearch.Location = new Point(1059, 23);
             btnSearch.Margin = new Padding(0);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(143, 46);
@@ -524,7 +528,7 @@
             panel29.BackColor = Color.White;
             panel29.Controls.Add(txtSearch);
             panel29.Controls.Add(label6);
-            panel29.Location = new Point(0, 10);
+            panel29.Location = new Point(0, 4);
             panel29.Margin = new Padding(3, 4, 3, 4);
             panel29.Name = "panel29";
             panel29.Size = new Size(302, 78);
@@ -534,7 +538,7 @@
             // 
             txtSearch.BorderStyle = BorderStyle.FixedSingle;
             txtSearch.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSearch.Location = new Point(15, 38);
+            txtSearch.Location = new Point(15, 29);
             txtSearch.Margin = new Padding(3, 4, 3, 4);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(270, 34);
@@ -545,7 +549,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label6.ForeColor = Color.Black;
-            label6.Location = new Point(15, 7);
+            label6.Location = new Point(15, 4);
             label6.Name = "label6";
             label6.Size = new Size(61, 23);
             label6.TabIndex = 18;
@@ -556,7 +560,7 @@
             panel28.BackColor = Color.White;
             panel28.Controls.Add(comboBox_date);
             panel28.Controls.Add(label5);
-            panel28.Location = new Point(828, 10);
+            panel28.Location = new Point(828, 4);
             panel28.Margin = new Padding(3, 4, 3, 4);
             panel28.Name = "panel28";
             panel28.Size = new Size(212, 78);
@@ -566,7 +570,7 @@
             // 
             comboBox_date.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBox_date.FormattingEnabled = true;
-            comboBox_date.Location = new Point(15, 34);
+            comboBox_date.Location = new Point(15, 29);
             comboBox_date.Margin = new Padding(3, 4, 3, 4);
             comboBox_date.Name = "comboBox_date";
             comboBox_date.Size = new Size(183, 36);
@@ -578,7 +582,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.Black;
-            label5.Location = new Point(15, 7);
+            label5.Location = new Point(15, 4);
             label5.Name = "label5";
             label5.Size = new Size(46, 23);
             label5.TabIndex = 18;
@@ -589,7 +593,7 @@
             panel27.BackColor = Color.White;
             panel27.Controls.Add(comboBox_category);
             panel27.Controls.Add(label10);
-            panel27.Location = new Point(308, 10);
+            panel27.Location = new Point(308, 4);
             panel27.Margin = new Padding(3, 4, 3, 4);
             panel27.Name = "panel27";
             panel27.Size = new Size(254, 78);
@@ -599,7 +603,7 @@
             // 
             comboBox_category.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBox_category.FormattingEnabled = true;
-            comboBox_category.Location = new Point(15, 34);
+            comboBox_category.Location = new Point(15, 29);
             comboBox_category.Margin = new Padding(3, 4, 3, 4);
             comboBox_category.Name = "comboBox_category";
             comboBox_category.Size = new Size(225, 36);
@@ -611,22 +615,11 @@
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label10.ForeColor = Color.Black;
-            label10.Location = new Point(15, 7);
+            label10.Location = new Point(15, 4);
             label10.Name = "label10";
             label10.Size = new Size(79, 23);
             label10.TabIndex = 18;
             label10.Text = "Category";
-            // 
-            // lblFeaturedEvents
-            // 
-            lblFeaturedEvents.AutoSize = true;
-            lblFeaturedEvents.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblFeaturedEvents.ForeColor = Color.FromArgb(27, 60, 109);
-            lblFeaturedEvents.Location = new Point(1240, 260);
-            lblFeaturedEvents.Name = "lblFeaturedEvents";
-            lblFeaturedEvents.Size = new Size(183, 31);
-            lblFeaturedEvents.TabIndex = 1;
-            lblFeaturedEvents.Text = "Featured Events";
             // 
             // dataGridView_events
             // 
@@ -637,13 +630,13 @@
             dataGridView_events.BackgroundColor = Color.White;
             dataGridView_events.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView_events.Columns.AddRange(new DataGridViewColumn[] { btnViewDetails });
-            dataGridView_events.Location = new Point(25, 391);
+            dataGridView_events.Location = new Point(15, 38);
             dataGridView_events.MultiSelect = false;
             dataGridView_events.Name = "dataGridView_events";
             dataGridView_events.ReadOnly = true;
             dataGridView_events.RowHeadersWidth = 51;
             dataGridView_events.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView_events.Size = new Size(1323, 234);
+            dataGridView_events.Size = new Size(1287, 284);
             dataGridView_events.TabIndex = 23;
             dataGridView_events.CellContentClick += dataGridView_events_CellContentClick;
             // 
@@ -662,9 +655,9 @@
             grpRecommendations.BackColor = Color.White;
             grpRecommendations.Controls.Add(dataGridView_recommendations);
             grpRecommendations.ForeColor = Color.FromArgb(27, 60, 109);
-            grpRecommendations.Location = new Point(26, 648);
+            grpRecommendations.Location = new Point(25, 736);
             grpRecommendations.Name = "grpRecommendations";
-            grpRecommendations.Size = new Size(1322, 247);
+            grpRecommendations.Size = new Size(872, 159);
             grpRecommendations.TabIndex = 24;
             grpRecommendations.TabStop = false;
             grpRecommendations.Text = "Recommended Events";
@@ -685,7 +678,7 @@
             dataGridView_recommendations.RowHeadersVisible = false;
             dataGridView_recommendations.RowHeadersWidth = 51;
             dataGridView_recommendations.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView_recommendations.Size = new Size(1287, 202);
+            dataGridView_recommendations.Size = new Size(837, 121);
             dataGridView_recommendations.TabIndex = 0;
             dataGridView_recommendations.CellContentClick += dataGridView_recommendations_CellContentClick;
             // 
@@ -698,15 +691,50 @@
             btnViewDetailsRecommended.Text = "View Details";
             btnViewDetailsRecommended.UseColumnTextForButtonValue = true;
             // 
+            // grpUpcomingEvents
+            // 
+            grpUpcomingEvents.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            grpUpcomingEvents.BackColor = Color.White;
+            grpUpcomingEvents.Controls.Add(lstUpcomingEvents);
+            grpUpcomingEvents.ForeColor = Color.FromArgb(27, 60, 109);
+            grpUpcomingEvents.Location = new Point(903, 736);
+            grpUpcomingEvents.Name = "grpUpcomingEvents";
+            grpUpcomingEvents.Size = new Size(445, 159);
+            grpUpcomingEvents.TabIndex = 25;
+            grpUpcomingEvents.TabStop = false;
+            grpUpcomingEvents.Text = "Upcoming Events";
+            // 
+            // lstUpcomingEvents
+            // 
+            lstUpcomingEvents.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lstUpcomingEvents.FormattingEnabled = true;
+            lstUpcomingEvents.Location = new Point(17, 26);
+            lstUpcomingEvents.Name = "lstUpcomingEvents";
+            lstUpcomingEvents.Size = new Size(408, 124);
+            lstUpcomingEvents.TabIndex = 1;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.BackColor = Color.White;
+            groupBox2.Controls.Add(dataGridView_events);
+            groupBox2.ForeColor = Color.FromArgb(27, 60, 109);
+            groupBox2.Location = new Point(26, 375);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(1322, 340);
+            groupBox2.TabIndex = 26;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Events and Announcements ";
+            // 
             // LocalEventsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 254, 255);
             ClientSize = new Size(1378, 976);
+            Controls.Add(groupBox2);
+            Controls.Add(grpUpcomingEvents);
             Controls.Add(grpRecommendations);
-            Controls.Add(dataGridView_events);
-            Controls.Add(lblFeaturedEvents);
             Controls.Add(panel25);
             Controls.Add(btnBackToMenu);
             Controls.Add(panel23);
@@ -735,8 +763,9 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView_events).EndInit();
             grpRecommendations.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView_recommendations).EndInit();
+            grpUpcomingEvents.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -784,7 +813,6 @@
         private Label label10;
         private Button btnSearch;
         private Button btnClear;
-        private Label lblFeaturedEvents;
         private DataGridView dataGridView_events;
         private Panel panel26;
         private ComboBox comboBox_location;
@@ -793,5 +821,8 @@
         private GroupBox grpRecommendations;
         private DataGridView dataGridView_recommendations;
         private DataGridViewButtonColumn btnViewDetailsRecommended;
+        private GroupBox grpUpcomingEvents;
+        private GroupBox groupBox2;
+        private ListBox lstUpcomingEvents;
     }
 }

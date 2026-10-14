@@ -13,6 +13,56 @@ namespace MunicipalityConnect
 {
     public partial class LocalEventsForm : Form
     {
+        // =========================================================
+        // DATA MODEL
+        // =========================================================
+
+        // Represents a community event.
+        public class CommunityEvent
+        {
+            public int EventId { get; set; }
+            public string EventName { get; set; } = "";
+            public string Category { get; set; } = "";
+            public DateTime EventDate { get; set; }
+            public string Location { get; set; } = "";
+            public string Description { get; set; } = "";
+        }
+
+        // =========================================================
+        // DATA STRUCTURES
+        // =========================================================
+
+        // Stores all available events.
+        private List<CommunityEvent> allEvents = new List<CommunityEvent>();
+
+        // Retrieves an event using its unique ID.
+        private Dictionary<int, CommunityEvent> eventDictionary =
+            new Dictionary<int, CommunityEvent>();
+
+        // Groups events by date in chronological order.
+        private SortedDictionary<DateTime, List<CommunityEvent>> eventsByDate =
+            new SortedDictionary<DateTime, List<CommunityEvent>>();
+
+        // Records recently viewed events (last viewed event is on top).
+        private Stack<CommunityEvent> recentlyViewedEvents =
+            new Stack<CommunityEvent>();
+
+        // Stores upcoming events in chronological order (FIFO).
+        private Queue<CommunityEvent> upcomingEvents =
+            new Queue<CommunityEvent>();
+
+        // Stores each category only once.
+        private HashSet<string> eventCategories =
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        // Records how often users search for each preference.
+        private Dictionary<string, int> searchHistory =
+            new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+
+        // =========================================================
+        // FORM INITIALISATION
+        // =========================================================
+
         public LocalEventsForm()
         {
             InitializeComponent();
@@ -21,10 +71,13 @@ namespace MunicipalityConnect
 
         private void pnlFeaturedEvents_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
-        // Event handler for the Search button click event.
+        // =========================================================
+        // SEARCH AND FILTERS
+        // =========================================================
+
+        // Handles the Search button click event.
         private void btnSearch_Click(object sender, EventArgs e)
         {
             string keyword = txtSearch.Text.Trim();
@@ -39,6 +92,7 @@ namespace MunicipalityConnect
                 ?? "All locations";
 
             DateTime parsedDate = DateTime.MinValue;
+
             bool filterByDate = DateTime.TryParseExact(
                 selectedDate,
                 "dd MMM yyyy",
@@ -69,23 +123,19 @@ namespace MunicipalityConnect
             DisplayRecommendations();
         }
 
-        // Event handler for the filter ComboBox selection change event.
+        // Populates the filter ComboBoxes using the loaded event data.
         private void PopulateFilters()
         {
-            // Prevent event handlers from firing while the lists are being populated.
+            // Prevent event handlers from firing while lists are populated.
             comboBox_category.SelectedIndexChanged -= Filter_SelectedIndexChanged;
             comboBox_date.SelectedIndexChanged -= Filter_SelectedIndexChanged;
             comboBox_location.SelectedIndexChanged -= Filter_SelectedIndexChanged;
 
-            // Populate distinct categories.
+            // Populate categories using the HashSet to avoid duplicates.
             comboBox_category.Items.Clear();
             comboBox_category.Items.Add("All categories");
 
-            foreach (string category in allEvents
-                .Select(ev => ev.Category)
-                .Where(category => !string.IsNullOrWhiteSpace(category))
-                .Distinct()
-                .OrderBy(category => category))
+            foreach (string category in eventCategories.OrderBy(category => category))
             {
                 comboBox_category.Items.Add(category);
             }
@@ -120,129 +170,288 @@ namespace MunicipalityConnect
             comboBox_date.SelectedIndex = 0;
             comboBox_location.SelectedIndex = 0;
 
-            // Attach handlers after population is complete.
-            //comboBox_category.SelectedIndexChanged += Filter_SelectedIndexChanged;
-            //comboBox_date.SelectedIndexChanged += Filter_SelectedIndexChanged;
-            //comboBox_location.SelectedIndexChanged += Filter_SelectedIndexChanged;
+            // These handlers remain unsubscribed because filtering is manual.
+            // comboBox_category.SelectedIndexChanged += Filter_SelectedIndexChanged;
+            // comboBox_date.SelectedIndexChanged += Filter_SelectedIndexChanged;
+            // comboBox_location.SelectedIndexChanged += Filter_SelectedIndexChanged;
         }
 
-        // Event handler for the filter ComboBox selection change event.
+        // Kept as the ComboBox selection-change handler.
         private void Filter_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Search again using the currently selected filters.
             btnSearch_Click(sender, e);
         }
 
-        // Event handler for the DataGridView cell content click event to view event details.
-        private void dataGridView_events_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        // Clears the search and restores all events.
+        private void btnClear_Click(object sender, EventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0 || dataGridView_events.Columns[e.ColumnIndex].Name != "btnViewDetails")
-            {
-                return;
-            }
+            txtSearch.Clear();
 
-            int eventId = Convert.ToInt32(
-                dataGridView_events.Rows[e.RowIndex].Cells["EventId"].Value);
+            comboBox_category.SelectedIndex = 0;
+            comboBox_date.SelectedIndex = 0;
+            comboBox_location.SelectedIndex = 0;
 
-            if (eventDictionary.TryGetValue(eventId, out CommunityEvent ev))
-            {
-                recentlyViewedEvents.Push(ev);
-
-                // debug
-                System.Diagnostics.Debug.WriteLine(
-                     $"Recently viewed: {recentlyViewedEvents.Peek().EventName}");
-
-                MessageBox.Show(
-                    $"Event: {ev.EventName}\n" +
-                    $"Category: {ev.Category}\n" +
-                    $"Date: {ev.EventDate:dd MMM yyyy}\n" +
-                    $"Location: {ev.Location}\n\n" +
-                    ev.Description,
-                    "Event Details",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-            }
+            DisplayEvents(GetEventsByDate());
         }
 
-        // Class representing a community event.
-
-        public class CommunityEvent
-        {
-            public int EventId { get; set; }
-            public string EventName { get; set; } = "";
-            public string Category { get; set; } = "";
-            public DateTime EventDate { get; set; }
-            public string Location { get; set; } = "";
-            public string Description { get; set; } = "";
-        }
-
-        private List<CommunityEvent> allEvents = new List<CommunityEvent>();
-
-        // Dictionary for retrieving an event using its unique ID.
-        private Dictionary<int, CommunityEvent> eventDictionary =
-            new Dictionary<int, CommunityEvent>();
-
-        // Sorted dictionary organises events by date.
-        private SortedDictionary<DateTime, List<CommunityEvent>> eventsByDate =
-            new SortedDictionary<DateTime, List<CommunityEvent>>();
+        // =========================================================
+        // LOAD AND ORGANISE EVENT DATA
+        // =========================================================
 
         private void LoadEvents()
         {
             allEvents = new List<CommunityEvent>
+{
+            // Environment
+            new CommunityEvent
             {
-                new CommunityEvent
-                {
-                    EventId = 1,
-                    EventName = "Community Clean-Up Day",
-                    Category = "Environment",
-                    EventDate = new DateTime(2026, 10, 24),
-                    Location = "Durban Central",
-                    Description = "Help keep our community clean."
-                },
-                new CommunityEvent
-                {
-                    EventId = 2,
-                    EventName = "Small Business Workshop",
-                    Category = "Business",
-                    EventDate = new DateTime(2026, 10, 27),
-                    Location = "Durban",
-                    Description = "Learn practical business skills."
-                },
-                new CommunityEvent
-                {
-                    EventId = 3,
-                    EventName = "Community Health Awareness",
-                    Category = "Health",
-                    EventDate = new DateTime(2026, 10, 31),
-                    Location = "Umlazi",
-                    Description = "Learn about healthy living."
-                },
-                new CommunityEvent
-                {
-                    EventId = 4,
-                    EventName = "Youth Skills Development",
-                    Category = "Education",
-                    EventDate = new DateTime(2026, 11, 4),
-                    Location = "Pinetown",
-                    Description = "Explore skills development opportunities."
-                },
-                new CommunityEvent
-                {
-                    EventId = 5,
-                    EventName = "Community Safety Meeting",
-                    Category = "Community",
-                    EventDate = new DateTime(2026, 11, 7),
-                    Location = "Durban North",
-                    Description = "Discuss local safety concerns."
-                }
+                EventId = 1,
+                EventName = "Community Clean-Up Day",
+                Category = "Environment",
+                EventDate = new DateTime(2026, 10, 24),
+                Location = "Durban Central",
+                Description = "Join residents in cleaning public spaces and keeping our community clean."
+            },
+            new CommunityEvent
+            {
+                EventId = 2,
+                EventName = "Tree Planting Initiative",
+                Category = "Environment",
+                EventDate = new DateTime(2026, 11, 14),
+                Location = "Pinetown",
+                Description = "Help plant trees and learn about protecting the local environment."
+            },
+            new CommunityEvent
+            {
+                EventId = 3,
+                EventName = "Recycling Awareness Campaign",
+                Category = "Environment",
+                EventDate = new DateTime(2026, 12, 5),
+                Location = "Umlazi",
+                Description = "Learn how to separate recyclable waste and reduce household waste."
+            },
 
-            };
+            // Business
+            new CommunityEvent
+            {
+                EventId = 4,
+                EventName = "Small Business Workshop",
+                Category = "Business",
+                EventDate = new DateTime(2026, 10, 27),
+                Location = "Durban",
+                Description = "Learn practical business skills, financial planning, and customer management."
+            },
+            new CommunityEvent
+            {
+                EventId = 5,
+                EventName = "Entrepreneurship Information Session",
+                Category = "Business",
+                EventDate = new DateTime(2026, 11, 19),
+                Location = "KwaMashu",
+                Description = "Discover resources and opportunities available to aspiring entrepreneurs."
+            },
+            new CommunityEvent
+            {
+                EventId = 6,
+                EventName = "Local Market and Business Expo",
+                Category = "Business",
+                EventDate = new DateTime(2026, 12, 12),
+                Location = "Durban North",
+                Description = "Meet local business owners and explore products and services from community businesses."
+            },
 
-            // Clear existing data structures before populating them.
+            // Health
+            new CommunityEvent
+            {
+                EventId = 7,
+                EventName = "Community Health Awareness",
+                Category = "Health",
+                EventDate = new DateTime(2026, 10, 31),
+                Location = "Umlazi",
+                Description = "Learn about healthy living, preventive care, and available community health services."
+            },
+            new CommunityEvent
+            {
+                EventId = 8,
+                EventName = "Blood Donation Drive",
+                Category = "Health",
+                EventDate = new DateTime(2026, 11, 21),
+                Location = "Durban Central",
+                Description = "Support local healthcare services by participating in a community blood donation drive."
+            },
+            new CommunityEvent
+            {
+                EventId = 9,
+                EventName = "Community Fitness Day",
+                Category = "Health",
+                EventDate = new DateTime(2027, 1, 16),
+                Location = "Westville",
+                Description = "Take part in outdoor exercise activities promoting healthy and active lifestyles."
+            },
+
+            // Education
+            new CommunityEvent
+            {
+                EventId = 10,
+                EventName = "Youth Skills Development",
+                Category = "Education",
+                EventDate = new DateTime(2026, 11, 4),
+                Location = "Pinetown",
+                Description = "Explore skills development opportunities and resources for young people."
+            },
+            new CommunityEvent
+            {
+                EventId = 11,
+                EventName = "Digital Literacy Workshop",
+                Category = "Education",
+                EventDate = new DateTime(2026, 11, 28),
+                Location = "KwaMashu",
+                Description = "Learn basic computer skills, internet safety, and how to access online services."
+            },
+            new CommunityEvent
+            {
+                EventId = 12,
+                EventName = "Career Guidance Day",
+                Category = "Education",
+                EventDate = new DateTime(2027, 1, 23),
+                Location = "Durban",
+                Description = "Explore career paths, training programmes, and further education opportunities."
+            },
+
+            // Community
+            new CommunityEvent
+            {
+                EventId = 13,
+                EventName = "Community Safety Meeting",
+                Category = "Community",
+                EventDate = new DateTime(2026, 11, 7),
+                Location = "Durban North",
+                Description = "Discuss neighbourhood safety concerns and ways to improve community cooperation."
+            },
+            new CommunityEvent
+            {
+                EventId = 14,
+                EventName = "Residents Association Meeting",
+                Category = "Community",
+                EventDate = new DateTime(2026, 11, 25),
+                Location = "Westville",
+                Description = "Discuss local concerns, community priorities, and proposed improvement initiatives."
+            },
+            new CommunityEvent
+            {
+                EventId = 15,
+                EventName = "Community Volunteer Day",
+                Category = "Community",
+                EventDate = new DateTime(2026, 12, 19),
+                Location = "Umlazi",
+                Description = "Volunteer your time to support local community projects and residents."
+            },
+
+            // Municipal Services
+            new CommunityEvent
+            {
+                EventId = 16,
+                EventName = "Municipal Services Information Day",
+                Category = "Municipal Services",
+                EventDate = new DateTime(2026, 11, 11),
+                Location = "Durban Central",
+                Description = "Learn how to access municipal services and submit service requests."
+            },
+            new CommunityEvent
+            {
+                EventId = 17,
+                EventName = "Water Conservation Awareness",
+                Category = "Municipal Services",
+                EventDate = new DateTime(2026, 12, 2),
+                Location = "Pinetown",
+                Description = "Learn about water conservation, responsible water use, and reporting water leaks."
+            },
+            new CommunityEvent
+            {
+                EventId = 18,
+                EventName = "Electricity Safety Information Session",
+                Category = "Municipal Services",
+                EventDate = new DateTime(2027, 1, 9),
+                Location = "KwaMashu",
+                Description = "Learn about electrical safety and the correct channels for reporting electricity-related problems."
+            },
+
+            // Arts and Culture
+            new CommunityEvent
+            {
+                EventId = 19,
+                EventName = "Local Arts and Culture Festival",
+                Category = "Arts and Culture",
+                EventDate = new DateTime(2026, 12, 6),
+                Location = "Durban Central",
+                Description = "Celebrate local artists, cultural performances, music, and creative talent."
+            },
+            new CommunityEvent
+            {
+                EventId = 20,
+                EventName = "Community Music Showcase",
+                Category = "Arts and Culture",
+                EventDate = new DateTime(2027, 1, 30),
+                Location = "Umlazi",
+                Description = "Enjoy performances by local musicians and emerging community talent."
+            },
+
+            // Sports and Recreation
+            new CommunityEvent
+            {
+                EventId = 21,
+                EventName = "Community Fun Run",
+                Category = "Sports and Recreation",
+                EventDate = new DateTime(2026, 11, 15),
+                Location = "Durban North",
+                Description = "Participate in a community fun run promoting fitness and social participation."
+            },
+            new CommunityEvent
+            {
+                EventId = 22,
+                EventName = "Youth Football Tournament",
+                Category = "Sports and Recreation",
+                EventDate = new DateTime(2026, 12, 13),
+                Location = "KwaMashu",
+                Description = "Support local youth teams competing in a community football tournament."
+            },
+            new CommunityEvent
+            {
+                EventId = 23,
+                EventName = "Family Recreation Day",
+                Category = "Sports and Recreation",
+                EventDate = new DateTime(2027, 2, 6),
+                Location = "Westville",
+                Description = "Enjoy family-friendly outdoor activities and recreational games."
+            },
+
+            // Public Announcements
+            new CommunityEvent
+            {
+                EventId = 24,
+                EventName = "Municipal Public Participation Meeting",
+                Category = "Public Announcement",
+                EventDate = new DateTime(2026, 11, 18),
+                Location = "Durban",
+                Description = "Residents can discuss municipal priorities and provide feedback on proposed community initiatives."
+            },
+            new CommunityEvent
+            {
+                EventId = 25,
+                EventName = "Community Development Programme Registration",
+                Category = "Public Announcement",
+                EventDate = new DateTime(2027, 2, 13),
+                Location = "Pinetown",
+                Description = "Find out about registration requirements and opportunities for upcoming community development programmes."
+            }
+        };
+
+            // Clear existing data structures before repopulating them.
             eventDictionary.Clear();
             eventsByDate.Clear();
 
-            // Populate the eventDictionary and eventsByDate for efficient retrieval and filtering.
+            // Populate the event dictionary and sorted dictionary.
             foreach (CommunityEvent ev in allEvents)
             {
                 eventDictionary[ev.EventId] = ev;
@@ -255,11 +464,7 @@ namespace MunicipalityConnect
                 eventsByDate[ev.EventDate.Date].Add(ev);
             }
 
-            // Populate the filter ComboBoxes with distinct values from the loaded events.
-            PopulateFilters();
-            DisplayEvents(GetEventsByDate());
-
-            // Populate the queue with upcoming events in chronological order.
+            // Populate the Queue with upcoming events in chronological order.
             upcomingEvents.Clear();
 
             foreach (CommunityEvent ev in allEvents
@@ -269,7 +474,7 @@ namespace MunicipalityConnect
                 upcomingEvents.Enqueue(ev);
             }
 
-            // Store unique event categories.
+            // Store unique event categories in the HashSet.
             eventCategories.Clear();
 
             foreach (CommunityEvent ev in allEvents)
@@ -280,8 +485,29 @@ namespace MunicipalityConnect
                 }
             }
 
+            // Populate filters after the HashSet has been filled.
+            PopulateFilters();
+
+            // Display all events in chronological order.
+            DisplayEvents(GetEventsByDate());
+
+            // Display upcoming events from the Queue.
+            DisplayUpcomingEvents();
         }
 
+        // Returns events grouped by date, in chronological order.
+        private List<CommunityEvent> GetEventsByDate()
+        {
+            return eventsByDate
+                .SelectMany(group => group.Value)
+                .ToList();
+        }
+
+        // =========================================================
+        // DISPLAY EVENTS AND EVENT DETAILS
+        // =========================================================
+
+        // Displays the supplied events in the main events table.
         private void DisplayEvents(List<CommunityEvent> eventsToDisplay)
         {
             dataGridView_events.DataSource = null;
@@ -299,35 +525,57 @@ namespace MunicipalityConnect
                 .ToList();
         }
 
-        // Event handler for the Clear button click event.
-        private void btnClear_Click(object sender, EventArgs e)
+        // Handles the View Details button in the main events table.
+        private void dataGridView_events_CellContentClick(
+            object sender, DataGridViewCellEventArgs e)
         {
-            txtSearch.Clear();
+            if (e.RowIndex < 0 || e.ColumnIndex < 0 ||
+                dataGridView_events.Columns[e.ColumnIndex].Name != "btnViewDetails")
+            {
+                return;
+            }
 
-            comboBox_category.SelectedIndex = 0;
-            comboBox_date.SelectedIndex = 0;
-            comboBox_location.SelectedIndex = 0;
+            int eventId = Convert.ToInt32(
+                dataGridView_events.Rows[e.RowIndex].Cells["EventId"].Value);
 
-            DisplayEvents(GetEventsByDate());
+            if (eventDictionary.TryGetValue(eventId, out CommunityEvent ev))
+            {
+                recentlyViewedEvents.Push(ev);
+
+                // Write the most recently viewed event to the Debug Output window.
+                System.Diagnostics.Debug.WriteLine(
+                    $"Recently viewed: {recentlyViewedEvents.Peek().EventName}");
+
+                MessageBox.Show(
+                    $"Event: {ev.EventName}\n" +
+                    $"Category: {ev.Category}\n" +
+                    $"Date: {ev.EventDate:dd MMM yyyy}\n" +
+                    $"Location: {ev.Location}\n\n" +
+                    ev.Description,
+                    "Event Details",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
         }
 
+        // Displays upcoming events using the Queue.
+        private void DisplayUpcomingEvents()
+        {
+            lstUpcomingEvents.Items.Clear();
 
-        private Stack<CommunityEvent> recentlyViewedEvents =
-            new Stack<CommunityEvent>();
+            foreach (CommunityEvent ev in upcomingEvents)
+            {
+                lstUpcomingEvents.Items.Add(
+                    $"{ev.EventDate:dd MMM yyyy}  " +
+                    $"{ev.EventName}  {ev.Location}");
+            }
+        }
 
-        // Queue manages upcoming events in date order (FIFO).
-        private Queue<CommunityEvent> upcomingEvents =
-            new Queue<CommunityEvent>();
+        // =========================================================
+        // RECOMMENDATIONS
+        // =========================================================
 
-        // HashSet stores each category only once.
-        private HashSet<string> eventCategories =
-            new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-        // Records how often users search for each term or category.
-        private Dictionary<string, int> searchHistory =
-            new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-
-        // Records the user's search preference based on the most specific filter applied.
+        // Records the user's search preference based on the most specific filter.
         private void RecordSearchPreference(string keyword, string category, string location)
         {
             string preference = "";
@@ -356,8 +604,8 @@ namespace MunicipalityConnect
                 searchHistory[preference] = 1;
         }
 
-        // Displays relevant recommendations in a table,
-        // excluding events already shown in the main results table.
+        // Displays recommendations in a table, excluding events already shown
+        // in the main results table.
         private void DisplayRecommendations()
         {
             dataGridView_recommendations.DataSource = null;
@@ -372,7 +620,7 @@ namespace MunicipalityConnect
                 .Select(item => item.Key)
                 .ToList();
 
-            // Get the event IDs currently displayed in the main table.
+            // Get event IDs currently displayed in the main table.
             var displayedEventIds = dataGridView_events.Rows
                 .Cast<DataGridViewRow>()
                 .Where(row => row.Cells["EventId"].Value != null)
@@ -408,20 +656,11 @@ namespace MunicipalityConnect
                 })
                 .ToList();
 
-            // Display the recommendations in the table.
+            // Display the recommendations in the recommendations table.
             dataGridView_recommendations.DataSource = recommendations;
         }
 
-        // Returns events grouped by date, in chronological order.
-        private List<CommunityEvent> GetEventsByDate()
-        {
-            return eventsByDate
-                .SelectMany(group => group.Value)
-                .ToList();
-        }
-
-        // Displays details when the View Details button is clicked
-        // in the recommendations table.
+        // Handles the View Details button in the recommendations table.
         private void dataGridView_recommendations_CellContentClick(
             object sender, DataGridViewCellEventArgs e)
         {
@@ -452,6 +691,10 @@ namespace MunicipalityConnect
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
+
+        // =========================================================
+        // NAVIGATION
+        // =========================================================
 
         private void btnBackToMenu_Click(object sender, EventArgs e)
         {
