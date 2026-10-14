@@ -89,5 +89,13 @@ namespace MunicipalityConnect
 
             this.Hide();
         }
+
+        private void btn_view_events_Click(object sender, EventArgs e)
+        {
+            LocalEventsForm localEventsForm = new LocalEventsForm();
+            localEventsForm.Show();
+
+            this.Hide();
+        }
     }
 }
