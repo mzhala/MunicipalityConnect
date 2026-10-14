@@ -77,6 +77,7 @@
             label10 = new Label();
             lblFeaturedEvents = new Label();
             dataGridView_events = new DataGridView();
+            btnViewDetails = new DataGridViewButtonColumn();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -627,7 +628,9 @@
             dataGridView_events.AllowUserToDeleteRows = false;
             dataGridView_events.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView_events.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView_events.BackgroundColor = Color.White;
             dataGridView_events.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView_events.Columns.AddRange(new DataGridViewColumn[] { btnViewDetails });
             dataGridView_events.Location = new Point(25, 391);
             dataGridView_events.MultiSelect = false;
             dataGridView_events.Name = "dataGridView_events";
@@ -636,6 +639,16 @@
             dataGridView_events.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView_events.Size = new Size(1323, 234);
             dataGridView_events.TabIndex = 23;
+            dataGridView_events.CellContentClick += dataGridView_events_CellContentClick;
+            // 
+            // btnViewDetails
+            // 
+            btnViewDetails.HeaderText = "Action";
+            btnViewDetails.MinimumWidth = 6;
+            btnViewDetails.Name = "btnViewDetails";
+            btnViewDetails.ReadOnly = true;
+            btnViewDetails.Text = "View Details";
+            btnViewDetails.UseColumnTextForButtonValue = true;
             // 
             // LocalEventsForm
             // 
@@ -725,5 +738,6 @@
         private Panel panel26;
         private ComboBox comboBox_location;
         private Label label7;
+        private DataGridViewButtonColumn btnViewDetails;
     }
 }

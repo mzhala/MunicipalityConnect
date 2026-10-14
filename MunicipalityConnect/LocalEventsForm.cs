@@ -130,6 +130,37 @@ namespace MunicipalityConnect
             btnSearch_Click(sender, e);
         }
 
+        // Event handler for the DataGridView cell content click event to view event details.
+        private void dataGridView_events_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 ||
+                dataGridView_events.Columns[e.ColumnIndex].Name != "btnViewDetails")
+            {
+                return;
+            }
+
+            int eventId = Convert.ToInt32(
+                dataGridView_events.Rows[e.RowIndex].Cells["EventId"].Value);
+
+            if (eventDictionary.TryGetValue(eventId, out CommunityEvent ev))
+            {
+                recentlyViewedEvents.Push(ev);
+
+                // debug
+                System.Diagnostics.Debug.WriteLine(
+                     $"Recently viewed: {recentlyViewedEvents.Peek().EventName}");
+
+                MessageBox.Show(
+                    $"Event: {ev.EventName}\n" +
+                    $"Category: {ev.Category}\n" +
+                    $"Date: {ev.EventDate:dd MMM yyyy}\n" +
+                    $"Location: {ev.Location}\n\n" +
+                    ev.Description,
+                    "Event Details",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+        }
 
         // Class representing a community event.
 
@@ -226,6 +257,27 @@ namespace MunicipalityConnect
             PopulateFilters();
             DisplayEvents(allEvents);
 
+            // Populate the queue with upcoming events in chronological order.
+            upcomingEvents.Clear();
+
+            foreach (CommunityEvent ev in allEvents
+                .Where(ev => ev.EventDate.Date >= DateTime.Today)
+                .OrderBy(ev => ev.EventDate))
+            {
+                upcomingEvents.Enqueue(ev);
+            }
+
+            // Store unique event categories.
+            eventCategories.Clear();
+
+            foreach (CommunityEvent ev in allEvents)
+            {
+                if (!string.IsNullOrWhiteSpace(ev.Category))
+                {
+                    eventCategories.Add(ev.Category);
+                }
+            }
+
         }
 
         private void DisplayEvents(List<CommunityEvent> eventsToDisplay)
@@ -261,6 +313,13 @@ namespace MunicipalityConnect
         private Stack<CommunityEvent> recentlyViewedEvents =
             new Stack<CommunityEvent>();
 
+        // Queue manages upcoming events in date order (FIFO).
+        private Queue<CommunityEvent> upcomingEvents =
+            new Queue<CommunityEvent>();
+
+        // HashSet stores each category only once.
+        private HashSet<string> eventCategories =
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
 
     }
