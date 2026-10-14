@@ -294,7 +294,6 @@
             // btn_view_events
             // 
             btn_view_events.BackColor = Color.FromArgb(229, 130, 18);
-            btn_view_events.Cursor = Cursors.No;
             btn_view_events.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_view_events.ForeColor = Color.FromArgb(251, 252, 251);
             btn_view_events.Location = new Point(31, 224);

@@ -78,6 +78,9 @@
             lblFeaturedEvents = new Label();
             dataGridView_events = new DataGridView();
             btnViewDetails = new DataGridViewButtonColumn();
+            grpRecommendations = new GroupBox();
+            dataGridView_recommendations = new DataGridView();
+            btnViewDetailsRecommended = new DataGridViewButtonColumn();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -89,6 +92,8 @@
             panel28.SuspendLayout();
             panel27.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView_events).BeginInit();
+            grpRecommendations.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_recommendations).BeginInit();
             SuspendLayout();
             // 
             // panel2
@@ -435,6 +440,7 @@
             btnBackToMenu.TabIndex = 21;
             btnBackToMenu.Text = "Back to Main Menu";
             btnBackToMenu.UseVisualStyleBackColor = true;
+            btnBackToMenu.Click += btnBackToMenu_Click;
             // 
             // panel25
             // 
@@ -458,7 +464,7 @@
             panel26.BackColor = Color.White;
             panel26.Controls.Add(comboBox_location);
             panel26.Controls.Add(label7);
-            panel26.Location = new Point(584, 10);
+            panel26.Location = new Point(568, 10);
             panel26.Margin = new Padding(3, 4, 3, 4);
             panel26.Name = "panel26";
             panel26.Size = new Size(254, 78);
@@ -518,7 +524,7 @@
             panel29.BackColor = Color.White;
             panel29.Controls.Add(txtSearch);
             panel29.Controls.Add(label6);
-            panel29.Location = new Point(16, 10);
+            panel29.Location = new Point(0, 10);
             panel29.Margin = new Padding(3, 4, 3, 4);
             panel29.Name = "panel29";
             panel29.Size = new Size(302, 78);
@@ -550,7 +556,7 @@
             panel28.BackColor = Color.White;
             panel28.Controls.Add(comboBox_date);
             panel28.Controls.Add(label5);
-            panel28.Location = new Point(844, 10);
+            panel28.Location = new Point(828, 10);
             panel28.Margin = new Padding(3, 4, 3, 4);
             panel28.Name = "panel28";
             panel28.Size = new Size(212, 78);
@@ -583,7 +589,7 @@
             panel27.BackColor = Color.White;
             panel27.Controls.Add(comboBox_category);
             panel27.Controls.Add(label10);
-            panel27.Location = new Point(324, 10);
+            panel27.Location = new Point(308, 10);
             panel27.Margin = new Padding(3, 4, 3, 4);
             panel27.Name = "panel27";
             panel27.Size = new Size(254, 78);
@@ -650,12 +656,55 @@
             btnViewDetails.Text = "View Details";
             btnViewDetails.UseColumnTextForButtonValue = true;
             // 
+            // grpRecommendations
+            // 
+            grpRecommendations.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            grpRecommendations.BackColor = Color.White;
+            grpRecommendations.Controls.Add(dataGridView_recommendations);
+            grpRecommendations.ForeColor = Color.FromArgb(27, 60, 109);
+            grpRecommendations.Location = new Point(26, 648);
+            grpRecommendations.Name = "grpRecommendations";
+            grpRecommendations.Size = new Size(1322, 247);
+            grpRecommendations.TabIndex = 24;
+            grpRecommendations.TabStop = false;
+            grpRecommendations.Text = "Recommended Events";
+            // 
+            // dataGridView_recommendations
+            // 
+            dataGridView_recommendations.AllowUserToAddRows = false;
+            dataGridView_recommendations.AllowUserToDeleteRows = false;
+            dataGridView_recommendations.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView_recommendations.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView_recommendations.BackgroundColor = Color.White;
+            dataGridView_recommendations.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView_recommendations.Columns.AddRange(new DataGridViewColumn[] { btnViewDetailsRecommended });
+            dataGridView_recommendations.Location = new Point(15, 26);
+            dataGridView_recommendations.MultiSelect = false;
+            dataGridView_recommendations.Name = "dataGridView_recommendations";
+            dataGridView_recommendations.ReadOnly = true;
+            dataGridView_recommendations.RowHeadersVisible = false;
+            dataGridView_recommendations.RowHeadersWidth = 51;
+            dataGridView_recommendations.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView_recommendations.Size = new Size(1287, 202);
+            dataGridView_recommendations.TabIndex = 0;
+            dataGridView_recommendations.CellContentClick += dataGridView_recommendations_CellContentClick;
+            // 
+            // btnViewDetailsRecommended
+            // 
+            btnViewDetailsRecommended.HeaderText = "Action";
+            btnViewDetailsRecommended.MinimumWidth = 6;
+            btnViewDetailsRecommended.Name = "btnViewDetailsRecommended";
+            btnViewDetailsRecommended.ReadOnly = true;
+            btnViewDetailsRecommended.Text = "View Details";
+            btnViewDetailsRecommended.UseColumnTextForButtonValue = true;
+            // 
             // LocalEventsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 254, 255);
             ClientSize = new Size(1378, 976);
+            Controls.Add(grpRecommendations);
             Controls.Add(dataGridView_events);
             Controls.Add(lblFeaturedEvents);
             Controls.Add(panel25);
@@ -684,6 +733,8 @@
             panel27.ResumeLayout(false);
             panel27.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView_events).EndInit();
+            grpRecommendations.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView_recommendations).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -739,5 +790,8 @@
         private ComboBox comboBox_location;
         private Label label7;
         private DataGridViewButtonColumn btnViewDetails;
+        private GroupBox grpRecommendations;
+        private DataGridView dataGridView_recommendations;
+        private DataGridViewButtonColumn btnViewDetailsRecommended;
     }
 }

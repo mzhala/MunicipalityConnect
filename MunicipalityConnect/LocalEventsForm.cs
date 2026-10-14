@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -63,7 +64,9 @@ namespace MunicipalityConnect
                 (location == "All locations" || ev.Location == location)
             ).ToList();
 
+            RecordSearchPreference(keyword, category, location);
             DisplayEvents(results);
+            DisplayRecommendations();
         }
 
         // Event handler for the filter ComboBox selection change event.
@@ -133,8 +136,7 @@ namespace MunicipalityConnect
         // Event handler for the DataGridView cell content click event to view event details.
         private void dataGridView_events_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 ||
-                dataGridView_events.Columns[e.ColumnIndex].Name != "btnViewDetails")
+            if (e.RowIndex < 0 || e.ColumnIndex < 0 || dataGridView_events.Columns[e.ColumnIndex].Name != "btnViewDetails")
             {
                 return;
             }
@@ -255,7 +257,7 @@ namespace MunicipalityConnect
 
             // Populate the filter ComboBoxes with distinct values from the loaded events.
             PopulateFilters();
-            DisplayEvents(allEvents);
+            DisplayEvents(GetEventsByDate());
 
             // Populate the queue with upcoming events in chronological order.
             upcomingEvents.Clear();
@@ -306,10 +308,10 @@ namespace MunicipalityConnect
             comboBox_date.SelectedIndex = 0;
             comboBox_location.SelectedIndex = 0;
 
-            DisplayEvents(allEvents);
+            DisplayEvents(GetEventsByDate());
         }
 
-        
+
         private Stack<CommunityEvent> recentlyViewedEvents =
             new Stack<CommunityEvent>();
 
@@ -321,6 +323,142 @@ namespace MunicipalityConnect
         private HashSet<string> eventCategories =
             new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+        // Records how often users search for each term or category.
+        private Dictionary<string, int> searchHistory =
+            new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
 
+        // Records the user's search preference based on the most specific filter applied.
+        private void RecordSearchPreference(string keyword, string category, string location)
+        {
+            string preference = "";
+
+            // Prioritise a selected category.
+            if (category != "All categories")
+            {
+                preference = category;
+            }
+            else if (location != "All locations")
+            {
+                preference = location;
+            }
+            else if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                preference = keyword.Trim();
+            }
+
+            // Do not record searches with no meaningful filter.
+            if (string.IsNullOrWhiteSpace(preference))
+                return;
+
+            if (searchHistory.ContainsKey(preference))
+                searchHistory[preference]++;
+            else
+                searchHistory[preference] = 1;
+        }
+
+        // Displays relevant recommendations in a table,
+        // excluding events already shown in the main results table.
+        private void DisplayRecommendations()
+        {
+            dataGridView_recommendations.DataSource = null;
+
+            // Do not generate recommendations before a preference is recorded.
+            if (searchHistory.Count == 0)
+                return;
+
+            // Get the user's most frequently searched preferences.
+            var preferences = searchHistory
+                .OrderByDescending(item => item.Value)
+                .Select(item => item.Key)
+                .ToList();
+
+            // Get the event IDs currently displayed in the main table.
+            var displayedEventIds = dataGridView_events.Rows
+                .Cast<DataGridViewRow>()
+                .Where(row => row.Cells["EventId"].Value != null)
+                .Select(row => Convert.ToInt32(row.Cells["EventId"].Value))
+                .ToHashSet();
+
+            // Score events that are not already displayed.
+            var recommendations = allEvents
+                .Where(ev => !displayedEventIds.Contains(ev.EventId))
+                .Select(ev => new
+                {
+                    Event = ev,
+                    Score = preferences.Sum(preference =>
+                        (ev.Category.Contains(preference,
+                            StringComparison.OrdinalIgnoreCase) ? 3 : 0) +
+                        (ev.EventName.Contains(preference,
+                            StringComparison.OrdinalIgnoreCase) ? 2 : 0) +
+                        (ev.Location.Contains(preference,
+                            StringComparison.OrdinalIgnoreCase) ? 1 : 0) +
+                        (ev.Description.Contains(preference,
+                            StringComparison.OrdinalIgnoreCase) ? 1 : 0))
+                })
+                .Where(item => item.Score > 0)
+                .OrderByDescending(item => item.Score)
+                .ThenBy(item => item.Event.EventDate)
+                .Take(3)
+                .Select(item => new
+                {
+                    item.Event.EventName,
+                    item.Event.Category,
+                    Date = item.Event.EventDate.ToString("dd MMM yyyy"),
+                    item.Event.Location
+                })
+                .ToList();
+
+            // Display the recommendations in the table.
+            dataGridView_recommendations.DataSource = recommendations;
+        }
+
+        // Returns events grouped by date, in chronological order.
+        private List<CommunityEvent> GetEventsByDate()
+        {
+            return eventsByDate
+                .SelectMany(group => group.Value)
+                .ToList();
+        }
+
+        // Displays details when the View Details button is clicked
+        // in the recommendations table.
+        private void dataGridView_recommendations_CellContentClick(
+            object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0 ||
+                dataGridView_recommendations.Columns[e.ColumnIndex].Name != "btnViewDetailsRecommended")
+            {
+                return;
+            }
+
+            string eventName = dataGridView_recommendations
+                .Rows[e.RowIndex].Cells["EventName"].Value?.ToString() ?? "";
+
+            CommunityEvent ev = allEvents.FirstOrDefault(
+                item => item.EventName == eventName);
+
+            if (ev == null)
+                return;
+
+            recentlyViewedEvents.Push(ev);
+
+            MessageBox.Show(
+                $"Event: {ev.EventName}\n" +
+                $"Category: {ev.Category}\n" +
+                $"Date: {ev.EventDate:dd MMM yyyy}\n" +
+                $"Location: {ev.Location}\n\n" +
+                ev.Description,
+                "Event Details",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+        }
+
+        private void btnBackToMenu_Click(object sender, EventArgs e)
+        {
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.Show();
+
+            this.Hide();
+        }
     }
 }
